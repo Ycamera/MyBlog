@@ -1,0 +1,8 @@
+.code-heading {
+	&::before {
+		content: "< ";
+	}
+	&::after {
+		content: " />";
+	}
+}

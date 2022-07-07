@@ -1,0 +1,7 @@
+.pointBox:hover {
+  font-weight: bold;
+  transition: 0.3s;
+}
+.pointBox:hover .point {
+  opacity: 1;
+}/*# sourceMappingURL=sidebar.css.map */

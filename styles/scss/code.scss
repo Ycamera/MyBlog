@@ -1,0 +1,128 @@
+.code {
+	$CodeBg: #1f2631;
+
+	$blue50: #ebf8ff;
+	$blue100: #bee3f8;
+	$blue400: #4299e1;
+	$blue800: #2a4365;
+	$blue900: #1a365d;
+	$gray400: #a0aec0;
+
+	letter-spacing: 0.1rem;
+	line-height: 1.8rem;
+
+	:not(h2) + pre {
+		margin-top: 2rem;
+	}
+	pre {
+		padding: 1.5rem;
+		margin-bottom: 2rem;
+
+		background-color: $CodeBg;
+		border-radius: 5px;
+		overflow-x: auto;
+		letter-spacing: 0;
+		line-height: 1.5rem;
+	}
+
+	.code-frame {
+		position: relative;
+		background-color: $blue50;
+		margin-top: 3rem;
+		padding: 2rem;
+		border-radius: 5px;
+		pre:last-child {
+			margin-bottom: 0;
+		}
+	}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		padding: 5px;
+		font-weight: bold;
+		font-size: revert !important;
+	}
+
+	h2 {
+		display: inline-block;
+
+		color: $blue900;
+
+		border-radius: 5px 5px 0 0;
+		border-bottom: solid 5px $blue100;
+
+		margin-bottom: 2rem;
+		margin-left: 1rem;
+
+		&::before {
+			content: "< ";
+		}
+		&::after {
+			content: " />";
+		}
+	}
+	.h2-linenum {
+		position: relative;
+		top: 0.2rem;
+
+		font-weight: bold;
+		font-size: 2rem;
+		color: #94bcf9;
+	}
+
+	.highlight {
+		animation: light 2.5s ease-in-out forwards;
+		@keyframes light {
+			0% {
+			}
+			15%,
+			45%,
+			75% {
+				color: $gray400;
+			}
+			30%,
+			60%,
+			90%,
+			100% {
+				color: $blue900;
+			}
+		}
+	}
+}
+
+.prettyprint {
+	ol.linenums > li {
+		list-style-type: decimal;
+		list-style-position: outside;
+		color: rgb(174, 174, 174);
+		border-left: solid 3px rgb(76, 93, 80);
+		padding-left: 20px;
+	}
+	ol {
+		padding-left: 30px;
+	}
+	li {
+		background: transparent !important;
+	}
+	.pln {
+		color: white !important;
+	}
+	.kwd {
+		color: rgb(100, 193, 255);
+	}
+	.str {
+		color: rgb(104, 255, 162);
+	}
+	.pun {
+		color: rgb(171, 170, 170);
+	}
+	.lit {
+		color: rgb(104, 255, 162);
+	}
+	.com {
+		color: rgb(216, 163, 240);
+	}
+}

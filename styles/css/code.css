@@ -1,0 +1,100 @@
+.code {
+  letter-spacing: 0.1rem;
+  line-height: 1.8rem;
+}
+.code :not(h2) + pre {
+  margin-top: 2rem;
+}
+.code pre {
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  background-color: #1f2631;
+  border-radius: 5px;
+  overflow-x: auto;
+  letter-spacing: 0;
+  line-height: 1.5rem;
+}
+.code .code-frame {
+  position: relative;
+  background-color: #ebf8ff;
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 5px;
+}
+.code .code-frame pre:last-child {
+  margin-bottom: 0;
+}
+.code h1,
+.code h2,
+.code h3,
+.code h4,
+.code h5,
+.code h6 {
+  padding: 5px;
+  font-weight: bold;
+  font-size: revert !important;
+}
+.code h2 {
+  display: inline-block;
+  color: #1a365d;
+  border-radius: 5px 5px 0 0;
+  border-bottom: solid 5px #bee3f8;
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+}
+.code h2::before {
+  content: "< ";
+}
+.code h2::after {
+  content: " />";
+}
+.code .h2-linenum {
+  position: relative;
+  top: 0.2rem;
+  font-weight: bold;
+  font-size: 2rem;
+  color: #94bcf9;
+}
+.code .highlight {
+  animation: light 2.5s ease-in-out forwards;
+}
+@keyframes light {
+  15%, 45%, 75% {
+    color: #a0aec0;
+  }
+  30%, 60%, 90%, 100% {
+    color: #1a365d;
+  }
+}
+
+.prettyprint ol.linenums > li {
+  list-style-type: decimal;
+  list-style-position: outside;
+  color: rgb(174, 174, 174);
+  border-left: solid 3px rgb(76, 93, 80);
+  padding-left: 20px;
+}
+.prettyprint ol {
+  padding-left: 30px;
+}
+.prettyprint li {
+  background: transparent !important;
+}
+.prettyprint .pln {
+  color: white !important;
+}
+.prettyprint .kwd {
+  color: rgb(100, 193, 255);
+}
+.prettyprint .str {
+  color: rgb(104, 255, 162);
+}
+.prettyprint .pun {
+  color: rgb(171, 170, 170);
+}
+.prettyprint .lit {
+  color: rgb(104, 255, 162);
+}
+.prettyprint .com {
+  color: rgb(216, 163, 240);
+}/*# sourceMappingURL=code.css.map */
