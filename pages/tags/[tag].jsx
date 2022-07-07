@@ -6,6 +6,8 @@ import { Heading } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import codeStyle from "/styles/css/decoration.module.css";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import MyHead from "../../components/MyHead.jsx";
 
 export const getStaticPaths = async () => {
 	const paths = keysOfTag.map((tag) => {
@@ -19,7 +21,6 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-	console.log(params);
 	const data = await getArticlesByTag(params.tag);
 	return {
 		props: {
@@ -28,12 +29,12 @@ export const getStaticProps = async ({ params }) => {
 	};
 };
 
-export default function Tag({ posts }) {
-	const router = useRouter();
+export default function Tag({ posts, router }) {
 	const tag = router?.query?.tag;
 
 	return (
 		<>
+			<MyHead type="article" title={`#${tag}`} description={`サイト内のタグ検索:${tag}`} />
 			<Heading as="h1" py="50px" textAlign={"center"} color="gray.700" className={codeStyle["code-heading"]}>
 				{tag}
 			</Heading>
@@ -42,3 +43,17 @@ export default function Tag({ posts }) {
 		</>
 	);
 }
+
+/**
+export default function Tag({ articles, router }) {
+	const tag = router?.query?.tag;
+
+	const [posts, setPosts] = useState([]);
+
+	useEffect(() => {
+		set();
+		async function set() {
+			setPosts(await getArticlesByTag(tag, false, articles));
+		}
+	}, [tag, articles]);
+	 */

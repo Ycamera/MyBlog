@@ -1,0 +1,19 @@
+.font-stick,
+.nav {
+  font-family: "Stick", sans-serif !important;
+}
+
+@media (max-width: 575px) {
+  html {
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 1.3rem !important;
+  }
+}
+@media (min-width: 575px) and (max-width: 767px) {
+  html {
+    font-size: 15px;
+  }
+}/*# sourceMappingURL=font.css.map */

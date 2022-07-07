@@ -1,10 +1,4 @@
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeSanitize from "rehype-sanitize";
-import rehypeStringify from "rehype-stringify";
-
-import { getArticles } from "/lib/getArticles.mjs";
+import { getArticles, getArticleById } from "/lib/getArticles.mjs";
 import { Box, Flex, Heading, Text, Badge, OrderedList, ListItem } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
@@ -13,6 +7,9 @@ import { useState, useEffect } from "react";
 import { Tag } from "/components/Tag";
 import Script from "next/script";
 import Head from "next/head";
+import NextPreviousContent from "../../components/NextPreviousContent";
+import MyHead from "/components/MyHead";
+import convertMarkdownIntoHtml from "/lib/convertMarkdownIntoHtml";
 
 export const getStaticPaths = async () => {
 	const data = await getArticles();
@@ -28,52 +25,16 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-	const data = await getArticles();
-	const post = data.find((d) => String(d.id) === String(params.id));
+	const post = await getArticleById(params.id);
+	const posts = await getArticles();
+
 	return {
 		props: {
 			post: post,
+			posts: posts,
 		},
 	};
 };
-
-async function convertMarkdownIntoHtml(markdown) {
-	const data = await unified()
-		.use(remarkParse)
-		.use(remarkRehype)
-		.use(rehypeSanitize)
-		.use(rehypeStringify)
-		.process(markdown);
-
-	function replaceHtml(htmlData) {
-		let html = htmlData;
-		const keys = {
-			"<code>": "<code class='prettyprint linenums'>",
-			"<h2>": "<div class='code-frame'><h2>",
-			"<p>/end</p>": "</div>",
-		};
-
-		Object.keys(keys).forEach((key) => {
-			const reg = new RegExp(key, "g");
-			html = html.replace(reg, keys[key]);
-		});
-
-		const length = html.match(/<h2>/g)?.length;
-		const tableData = html.match(/<h2.+<\/h2>/g);
-
-		for (let i = 1; i <= length ? length : 0; i++) {
-			html = html.replace(/<h2>/, `<span class='h2-linenum'>${i}.</span><tmp[h2] id=content-${i}>`);
-		}
-
-		html = html.replace(/tmp\[h2\]/g, "h2");
-		const table = tableData?.map((data) => data.replace(/<h2>|<\/h2>/g, ""));
-
-		return { html: html, tableOfContentsData: table };
-	}
-
-	const html = replaceHtml(data.value);
-	return { ...html, htmlData: <div dangerouslySetInnerHTML={{ __html: html.html }}></div> };
-}
 
 const TableOfContents = ({ tableOfContents }) => {
 	function highlightHeading(id) {
@@ -91,7 +52,14 @@ const TableOfContents = ({ tableOfContents }) => {
 			</Box>
 			{tableOfContents?.map((content, i) => {
 				return (
-					<Box borderBottom="solid 5px" borderBottomStyle="dotted" borderColor="gray.300" p="3" fontSize="md">
+					<Box
+						key={content}
+						borderBottom="solid 5px"
+						borderBottomStyle="dotted"
+						borderColor="gray.300"
+						p="3"
+						fontSize="md"
+					>
 						<NextLink href={`#content-${i + 1}`}>
 							<a
 								style={{ display: "inline-block", width: "calc(100% - 50px)" }}
@@ -110,8 +78,10 @@ const TableOfContents = ({ tableOfContents }) => {
 	);
 };
 
-export default function Post({ post }) {
-	const { title, content, tag1, tag2, tag3, tag4, tag5 } = post.attributes;
+export default function Post({ posts, post, router }) {
+	const id = router?.query?.id;
+
+	const { title, content, tag1, tag2, tag3, tag4, tag5, description } = post?.attributes ? post?.attributes : {};
 
 	const [html, setHtml] = useState();
 	const [tableOfContents, setTableOfContents] = useState([]);
@@ -124,30 +94,124 @@ export default function Post({ post }) {
 			setHtml(htmlData);
 			setTableOfContents(tableOfContentsData);
 		}
-	}, []);
+	}, [content]);
 
 	return (
 		<>
 			<Head>
 				<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js" />
 			</Head>
-			<Box mt="50px">
-				<Box m="5" mb="3">
-					<Heading as="h1" mb="2rem" color="gray.700" fontSize={"2.1rem"}>
-						{title}
-					</Heading>
-					<Tag tags={[tag1, tag2, tag3, tag4, tag5]} />
-				</Box>
-				{tableOfContents && <TableOfContents tableOfContents={tableOfContents} />}
-				<Box mt="50" className="code">
-					{html}
-					<Flex mt="10" justifyContent={"end"}>
-						<Box fontWeight="bold" bg="cyan.50" color="blue.900" rounded="5" p="3">
-							{"</以上>"}
+
+			<MyHead type="article" title={title} description={description} />
+
+			{html && tableOfContents && (
+				<motion.div
+					key={id}
+					initial={{ opacity: 0, y: 10 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -10 }}
+					transition={{ type: "spring" }}
+				>
+					<Box mt="50px">
+						<Box m="5" mb="3">
+							<Heading
+								as="h1"
+								mb="2rem"
+								color="gray.700"
+								fontSize={{ base: "1.6rem", sm: "1.8rem", md: "2.1rem" }}
+							>
+								{title}
+							</Heading>
+							<Tag tags={[tag1, tag2, tag3, tag4, tag5]} />
 						</Box>
-					</Flex>
-				</Box>
-			</Box>
+						{tableOfContents && <TableOfContents tableOfContents={tableOfContents} />}
+						<Box mt="50" className="code">
+							{html}
+
+							<Flex mt="10" justifyContent={"end"}>
+								<Box fontWeight="bold" bg="cyan.50" color="blue.900" rounded="5" p="3">
+									{"</以上>"}
+								</Box>
+							</Flex>
+						</Box>
+						<NextPreviousContent id={id} posts={posts} />
+					</Box>
+				</motion.div>
+			)}
 		</>
 	);
 }
+
+/*
+export default function Post({ articles, router }) {
+	const [post, setPost] = useState({});
+	const id = router?.query?.id;
+
+	const { title, content, tag1, tag2, tag3, tag4, tag5, description } = post?.attributes ? post?.attributes : {};
+
+	const [html, setHtml] = useState();
+	const [tableOfContents, setTableOfContents] = useState([]);
+
+	useEffect(() => {
+		set();
+		async function set() {
+			setPost(await getArticleById(id, false, articles));
+		}
+	}, [id, articles]);
+
+	useEffect(() => {
+		set();
+		async function set() {
+			const { htmlData, tableOfContentsData } = await convertMarkdownIntoHtml(content);
+
+			setHtml(htmlData);
+			setTableOfContents(tableOfContentsData);
+		}
+	}, [content]);
+
+	return (
+		<>
+			<Head>
+				<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js" />
+			</Head>
+
+			<MyHead type="article" title={title} description={description} />
+
+			{html && tableOfContents && (
+				<motion.div
+					key={id}
+					initial={{ opacity: 0, y: 10 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -10 }}
+					transition={{ type: "spring" }}
+				>
+					<Box mt="50px">
+						<Box m="5" mb="3">
+							<Heading
+								as="h1"
+								mb="2rem"
+								color="gray.700"
+								fontSize={{ base: "1.6rem", sm: "1.8rem", md: "2.1rem" }}
+							>
+								{title}
+							</Heading>
+							<Tag tags={[tag1, tag2, tag3, tag4, tag5]} />
+						</Box>
+						{tableOfContents && <TableOfContents tableOfContents={tableOfContents} />}
+						<Box mt="50" className="code">
+							{html}
+
+							<Flex mt="10" justifyContent={"end"}>
+								<Box fontWeight="bold" bg="cyan.50" color="blue.900" rounded="5" p="3">
+									{"</以上>"}
+								</Box>
+							</Flex>
+						</Box>
+						<NextPreviousContent id={id} />
+					</Box>
+				</motion.div>
+			)}
+		</>
+	);
+}
+*/

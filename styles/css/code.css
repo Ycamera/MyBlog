@@ -21,6 +21,11 @@
   padding: 2rem;
   border-radius: 5px;
 }
+@media (max-width: 767px) {
+  .code .code-frame {
+    padding: 1rem;
+  }
+}
 .code .code-frame pre:last-child {
   margin-bottom: 0;
 }
@@ -47,6 +52,22 @@
 }
 .code h2::after {
   content: " />";
+}
+@media (max-width: 575px) {
+  .code h2 {
+    display: block;
+    margin-left: 0;
+    font-size: 1.3rem !important;
+  }
+  .code h2::before {
+    content: "";
+  }
+  .code h2::after {
+    content: "";
+  }
+  .code .h2-linenum {
+    top: 0 !important;
+  }
 }
 .code .h2-linenum {
   position: relative;
@@ -84,7 +105,7 @@
   color: white !important;
 }
 .prettyprint .kwd {
-  color: rgb(100, 193, 255);
+  color: rgb(87, 188, 255);
 }
 .prettyprint .str {
   color: rgb(104, 255, 162);
@@ -97,4 +118,7 @@
 }
 .prettyprint .com {
   color: rgb(216, 163, 240);
+}
+.prettyprint .typ {
+  color: rgb(255, 201, 84);
 }/*# sourceMappingURL=code.css.map */

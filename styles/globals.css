@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Stick&display=swap");
 @import "./css/sidebar.css";
-
+@import "./css/font.css";
 html,
 body {
 	padding: 0;
@@ -9,23 +9,17 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
 		Helvetica Neue, sans-serif;
 }
+
+* {
+	box-sizing: border-box;
+	line-height: 1.8rem;
+	letter-spacing: 0.1rem;
+}
+
 html {
 	overflow-y: scroll;
 	scroll-behavior: smooth;
 	scroll-padding-top: 100px;
-}
-::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-}
-::-webkit-scrollbar-track {
-	background: #e7e7e7;
-}
-::-webkit-scrollbar-thumb {
-	background: #a9b7ca;
-	border-radius: 50px;
-
-	border: solid 1px #e7e7e7;
 }
 a {
 	color: inherit;
@@ -36,12 +30,18 @@ a {
 	margin: "0";
 }
 
-* {
-	box-sizing: border-box;
-	line-height: 1.8rem;
-	letter-spacing: 0.1rem;
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
 }
 
-.font-stick {
-	font-family: "Stick", sans-serif;
+::-webkit-scrollbar-track {
+	background: #e7e7e7;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #a9b7ca;
+	border-radius: 50px;
+
+	border: solid 2px #e7e7e7;
 }

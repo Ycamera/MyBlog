@@ -31,6 +31,11 @@
 		margin-top: 3rem;
 		padding: 2rem;
 		border-radius: 5px;
+
+		@media (max-width: 767px) {
+			padding: 1rem;
+		}
+
 		pre:last-child {
 			margin-bottom: 0;
 		}
@@ -64,6 +69,26 @@
 			content: " />";
 		}
 	}
+	@media (max-width: 575px) {
+		h2 {
+			display: block;
+			margin-left: 0;
+			font-size: 1.3rem !important;
+
+			&::before {
+				content: "";
+			}
+			&::after {
+				content: "";
+			}
+		}
+		.h2-linenum {
+			top: 0 !important;
+		}
+	}
+	@media (min-width: 576px) and (max-width: 767px) {
+	}
+
 	.h2-linenum {
 		position: relative;
 		top: 0.2rem;
@@ -111,7 +136,7 @@
 		color: white !important;
 	}
 	.kwd {
-		color: rgb(100, 193, 255);
+		color: rgb(87, 188, 255);
 	}
 	.str {
 		color: rgb(104, 255, 162);
@@ -124,5 +149,8 @@
 	}
 	.com {
 		color: rgb(216, 163, 240);
+	}
+	.typ {
+		color: rgb(255, 201, 84);
 	}
 }

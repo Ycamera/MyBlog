@@ -13,7 +13,8 @@ const Published = ({ publishedAt }) => {
 			fontWeight="600"
 			color="gray.500"
 			textAlign={{ md: "center" }}
-			my="1"
+			mt="1"
+			mb={{ base: 0, md: 1 }}
 		>
 			{date}
 		</Text>
@@ -21,12 +22,13 @@ const Published = ({ publishedAt }) => {
 };
 
 export function PostList({ posts }) {
-	return posts.map((post, i) => {
+	return posts?.map((post, i) => {
 		const { id } = post;
 		const { title, description, publishedAt } = post.attributes;
+
 		return (
 			<motion.div
-				key={id}
+				key={`${id}${Math.random()}`}
 				initial={{ y: 10, opacity: 0 }}
 				animate={{ y: 0, opacity: 1 }}
 				exit={{ opacity: 0 }}
@@ -35,22 +37,22 @@ export function PostList({ posts }) {
 			>
 				<NextLink href={`/posts/${id}`}>
 					<a>
-						<Box minH={"120px"} mt={i === 0 ? 0 : "2rem"} mb="2rem" rounded="5" boxShadow="xl">
+						<Box minH={"120px"} mt={i === 0 ? 0 : "2rem"} mb="2rem" rounded="5" boxShadow="lg">
 							<Flex
 								px="5"
 								py="3"
 								flexDirection={{ base: "column", md: "row" }}
-								color="gray.800"
-								bg="gray.200"
+								color="blue.900"
+								bg="#deebff"
 								borderRadius="5px 5px 0 0"
 							>
-								<Heading as="h2" w="100%" fontSize="1.4rem" lineHeight="initial" mt="1">
+								<Heading as="h2" w="100%" fontSize="1.4rem" lineHeight="initial" mt="1" noOfLines="2">
 									{title}
 								</Heading>
 								<Published publishedAt={publishedAt} />
 							</Flex>
 
-							<Text px="5" py="5">
+							<Text px="5" py="5" color="gray.600">
 								{description}
 							</Text>
 						</Box>
