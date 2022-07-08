@@ -14,16 +14,6 @@
 	:not(h2) + pre {
 		margin-top: 2rem;
 	}
-	pre {
-		padding: 1.5rem;
-		margin-bottom: 2rem;
-
-		background-color: $CodeBg;
-		border-radius: 5px;
-		overflow-x: auto;
-		letter-spacing: 0;
-		line-height: 1.5rem;
-	}
 
 	.code-frame {
 		position: relative;
@@ -40,6 +30,19 @@
 			margin-bottom: 0;
 		}
 	}
+
+	pre {
+		padding: 1.5rem;
+		margin-bottom: 2rem;
+
+		background-color: $CodeBg;
+		border-radius: 5px;
+
+		letter-spacing: 0;
+		line-height: 1.5rem;
+		overflow-x: auto;
+	}
+
 	h1,
 	h2,
 	h3,
@@ -119,6 +122,9 @@
 }
 
 .prettyprint {
+	ol.linenums {
+		width: 0;
+	}
 	ol.linenums > li {
 		list-style-type: decimal;
 		list-style-position: outside;
@@ -126,6 +132,7 @@
 		border-left: solid 3px rgb(76, 93, 80);
 		padding-left: 20px;
 	}
+
 	ol {
 		padding-left: 30px;
 	}

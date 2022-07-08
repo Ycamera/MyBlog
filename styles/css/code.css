@@ -5,15 +5,6 @@
 .code :not(h2) + pre {
   margin-top: 2rem;
 }
-.code pre {
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  background-color: #1f2631;
-  border-radius: 5px;
-  overflow-x: auto;
-  letter-spacing: 0;
-  line-height: 1.5rem;
-}
 .code .code-frame {
   position: relative;
   background-color: #ebf8ff;
@@ -28,6 +19,15 @@
 }
 .code .code-frame pre:last-child {
   margin-bottom: 0;
+}
+.code pre {
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  background-color: #1f2631;
+  border-radius: 5px;
+  letter-spacing: 0;
+  line-height: 1.5rem;
+  overflow-x: auto;
 }
 .code h1,
 .code h2,
@@ -88,6 +88,9 @@
   }
 }
 
+.prettyprint ol.linenums {
+  width: 0;
+}
 .prettyprint ol.linenums > li {
   list-style-type: decimal;
   list-style-position: outside;

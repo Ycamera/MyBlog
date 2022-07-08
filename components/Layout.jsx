@@ -19,18 +19,18 @@ function Layout({ children }) {
 				<Flex h="100%" w="100%" maxW="1300px" mx="auto">
 					<Sidebar />
 
-					<Box flex="1">
-						<Container
-							minH="calc(100vh - 50px)"
-							maxW="1300px"
-							pb="200px"
-							mx="auto"
-							px={{ base: "1rem", md: "50px" }}
-							bg="white"
-						>
-							{children}
-						</Container>
-					</Box>
+					<Container
+						flex="1"
+						minH="calc(100vh - 50px)"
+						maxW="1000px"
+						pb="200px"
+						mx="auto"
+						px={{ base: "1rem", md: "50px" }}
+						bg="white"
+						overflow={"hidden"}
+					>
+						{children}
+					</Container>
 				</Flex>
 			</Flex>
 		</>

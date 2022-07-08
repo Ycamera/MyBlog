@@ -52,7 +52,7 @@ export function Sidebar() {
 	const [tagsIsOpen, setTagsIsOpen] = useState(true);
 
 	return (
-		<Box w={{ base: 0, lg: "200px", xl: "300px" }}>
+		<Box w={{ base: 0, lg: "200px", xl: "300px" }} zIndex="10">
 			<Box
 				h="calc(100vh - 50px)"
 				bg="gray.200"

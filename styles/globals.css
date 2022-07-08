@@ -2,6 +2,8 @@
 @import "./css/sidebar.css";
 @import "./css/font.css";
 @import "./css/keyframes.css";
+@import "./css/code.css";
+
 html,
 body {
 	padding: 0;
