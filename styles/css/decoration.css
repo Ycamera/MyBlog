@@ -1,0 +1,6 @@
+.code-heading::before {
+  content: "< ";
+}
+.code-heading::after {
+  content: " />";
+}/*# sourceMappingURL=decoration.css.map */

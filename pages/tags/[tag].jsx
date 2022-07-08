@@ -30,7 +30,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export default function Tag({ posts, router }) {
-	const tag = router?.query?.tag;
+	const tag = router?.query?.tag ? router?.query?.tag : "";
 
 	return (
 		<>

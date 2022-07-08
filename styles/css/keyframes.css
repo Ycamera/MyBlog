@@ -1,0 +1,38 @@
+.keyframe-clicked-effect-postlist-parent {
+  animation: clickedEffectParent 0.7s ease-in-out forwards;
+}
+@keyframes clickedEffectParent {
+  0%, 95% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+
+.keyframe-clicked-effect-postlist-child {
+  animation: clickedEffect 0.7s ease-in-out forwards;
+}
+@keyframes clickedEffect {
+  0% {
+    opacity: 0.2;
+    visibility: visible;
+    transform: scale(0);
+  }
+  30% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  95% {
+    opacity: 0;
+    visibility: visible;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}/*# sourceMappingURL=keyframes.css.map */

@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Stick&display=swap");
 @import "./css/sidebar.css";
 @import "./css/font.css";
+@import "./css/keyframes.css";
 html,
 body {
 	padding: 0;

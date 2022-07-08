@@ -23,12 +23,15 @@ const TagsInSidebar = ({ tagsIsOpen }) => {
 						style={{ width: "100%" }}
 					>
 						<NextLink href={`/tags/${key}`}>
-							<a className="pointBox">
+							<a
+								className="pointBox" //sitebar.scss
+							>
 								<Flex alignItems={"center"} fontWeight={current && "bold"}>
 									<Circle
 										size="5px"
 										bg="cyan.600"
-										ml={"30%"}
+										//ml={"30%"}
+										ml={{ base: "20%", xl: "30%" }}
 										mr="10px"
 										opacity={current ? 1 : 0}
 										transitionDuration="0.5s"
@@ -49,30 +52,30 @@ export function Sidebar() {
 	const [tagsIsOpen, setTagsIsOpen] = useState(true);
 
 	return (
-		<Box
-			h="calc(100vh - 50px)"
-			minW="300px"
-			w="300px"
-			bg="gray.200"
-			m="0"
-			display={{ base: "none", xl: "block" }}
-			position="sticky"
-			top="50px"
-		>
-			<VStack mt="50px">
-				<Button
-					w="100%"
-					bg="transparent"
-					borderRadius={"5px 5px 0 0"}
-					borderBottom="2px"
-					borderColor="cyan.700"
-					onClick={() => setTagsIsOpen((prev) => !prev)}
-					className="font-stick"
-				>
-					タグ
-				</Button>
-				<TagsInSidebar tagsIsOpen={tagsIsOpen} />
-			</VStack>
+		<Box w={{ base: 0, lg: "200px", xl: "300px" }}>
+			<Box
+				h="calc(100vh - 50px)"
+				bg="gray.200"
+				m="0"
+				display={{ base: "none", lg: "block" }}
+				position="sticky"
+				top="50px"
+			>
+				<VStack mt="50px">
+					<Button
+						w="100%"
+						bg="transparent"
+						borderRadius={"5px 5px 0 0"}
+						borderBottom="2px"
+						borderColor="cyan.700"
+						onClick={() => setTagsIsOpen((prev) => !prev)}
+						className="font-stick"
+					>
+						タグ
+					</Button>
+					<TagsInSidebar tagsIsOpen={tagsIsOpen} />
+				</VStack>
+			</Box>
 		</Box>
 	);
 }

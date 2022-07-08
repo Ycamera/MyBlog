@@ -36,6 +36,7 @@ export const getStaticProps = async ({ params }) => {
 	};
 };
 
+//目次
 const TableOfContents = ({ tableOfContents }) => {
 	function highlightHeading(id) {
 		try {
@@ -62,7 +63,7 @@ const TableOfContents = ({ tableOfContents }) => {
 					>
 						<NextLink href={`#content-${i + 1}`}>
 							<a
-								style={{ display: "inline-block", width: "calc(100% - 50px)" }}
+								style={{ display: "inline-block", width: "100%" }}
 								onClick={() => highlightHeading(`content-${i + 1}`)}
 							>
 								<Box display="inline-block" mr="2" fontWeight={"bold"} color="blue.900">
@@ -113,7 +114,7 @@ export default function Post({ posts, post, router }) {
 					transition={{ type: "spring" }}
 				>
 					<Box mt="50px">
-						<Box m="5" mb="3">
+						<Box mb="3">
 							<Heading
 								as="h1"
 								mb="2rem"
