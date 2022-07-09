@@ -1,0 +1,33 @@
+.mouse-cursor {
+  z-index: 500;
+  position: fixed;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  height: 0;
+  width: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mouse-cursor-box {
+  background-color: #f6ad55;
+  color: white;
+  transform: translate(0, -80%);
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mouse-cursor-text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  justify-content: center;
+  transform: translateY(-2px);
+}/*# sourceMappingURL=mousecursor.css.map */

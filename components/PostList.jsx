@@ -1,7 +1,7 @@
 import { Flex, Box, Heading, Text, Circle } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Published = ({ publishedAt }) => {
 	const dateData = new Date(publishedAt);

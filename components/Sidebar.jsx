@@ -1,9 +1,10 @@
 import { Circle, Container, Flex, Box, VStack, Button, useDisclosure } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { keysOfTag } from "./keys/tag.js";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
+import { MouseCursorContext } from "./MouseCursorLayout.jsx";
 
 const TagsInSidebar = ({ tagsIsOpen }) => {
 	const router = useRouter();
@@ -50,17 +51,20 @@ const TagsInSidebar = ({ tagsIsOpen }) => {
 
 export function Sidebar() {
 	const [tagsIsOpen, setTagsIsOpen] = useState(true);
+	const { mouseLeave } = useContext(MouseCursorContext);
 
 	return (
-		<Box w={{ base: 0, lg: "200px", xl: "300px" }} zIndex="10">
-			<Box
-				h="calc(100vh - 50px)"
-				bg="gray.200"
-				m="0"
-				display={{ base: "none", lg: "block" }}
-				position="sticky"
-				top="50px"
-			>
+		<Box
+			w={{ base: 0, lg: "200px", xl: "300px" }}
+			zIndex="10"
+			h="100%"
+			minH="calc(100vh - 50px)"
+			position="sticky"
+			top="50px"
+			onMouseEnter={mouseLeave}
+			cursor="default"
+		>
+			<Box bg="gray.200" m="0" display={{ base: "none", lg: "block" }}>
 				<VStack mt="50px">
 					<Button
 						w="100%"

@@ -1,4 +1,15 @@
+%notCopyable {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
 .code {
+	.notCopyable {
+		display: inline-block;
+		@extend %notCopyable;
+	}
 	$CodeBg: #1f2631;
 
 	$blue50: #ebf8ff;
@@ -71,6 +82,7 @@
 		&::after {
 			content: " />";
 		}
+		@extend %notCopyable;
 	}
 	@media (max-width: 575px) {
 		h2 {
@@ -99,6 +111,7 @@
 		font-weight: bold;
 		font-size: 2rem;
 		color: #94bcf9;
+		@extend %notCopyable;
 	}
 
 	.highlight {

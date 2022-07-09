@@ -1,7 +1,9 @@
 import "../styles/globals.css";
 import Nav from "/components//Nav";
 import { ChakraProvider } from "@chakra-ui/react";
-import Layout from "/components/Layout";
+
+import MouseCursorLayout from "../components/MouseCursorLayout";
+import ContentLayout from "/components/ContentLayout";
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -10,6 +12,7 @@ import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
 	const router = useRouter();
+	const ref = React.useRef(null);
 
 	return (
 		<ChakraProvider>
@@ -17,11 +20,13 @@ function MyApp({ Component, pageProps }) {
 				<meta property="og:site_name" content="暇な人の技術ブログ（仮）" />
 				<title>暇な人の技術ブログ（仮）</title>
 			</Head>
+			<MouseCursorLayout router={router}>
+				<Nav router={router} />
 
-			<Nav router={router} />
-			<Layout>
-				<Component {...pageProps} router={router} />
-			</Layout>
+				<ContentLayout router={router}>
+					<Component {...pageProps} router={router} />
+				</ContentLayout>
+			</MouseCursorLayout>
 		</ChakraProvider>
 	);
 }

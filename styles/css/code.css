@@ -1,6 +1,16 @@
+.code .h2-linenum, .code h2, .code .notCopyable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .code {
   letter-spacing: 0.1rem;
   line-height: 1.8rem;
+}
+.code .notCopyable {
+  display: inline-block;
 }
 .code :not(h2) + pre {
   margin-top: 2rem;

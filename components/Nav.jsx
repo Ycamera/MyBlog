@@ -1,8 +1,9 @@
 import { Flex, HStack, Box, Circle, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpIcon } from "@chakra-ui/icons";
+import { MouseCursorContext } from "./MouseCursorLayout";
 
 const ToTopButton = () => {
 	const [toTopIsShown, setToTopIsShown] = useState();
@@ -62,12 +63,13 @@ function Logo({ text, show }) {
 }
 
 export default function Nav({ router }) {
+	const { mouseLeave } = useContext(MouseCursorContext);
 	const navStyle = { width: "100px", textAlign: "center" };
 
 	const topPage = router.asPath === "/";
 
 	return (
-		<Box zIndex={100} pos={"sticky"} top="0" className="nav" fontWeight="bold">
+		<Box zIndex={100} pos={"sticky"} top="0" className="nav" fontWeight="bold" onMouseEnter={mouseLeave}>
 			<Flex
 				h="50px"
 				w="100%"
