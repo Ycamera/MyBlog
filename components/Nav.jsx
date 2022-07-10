@@ -18,15 +18,17 @@ const ToTopButton = () => {
 	}, []);
 
 	return (
-		toTopIsShown && (
-			<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-				<a href="#" style={{ display: "block" }}>
-					<Circle size="50px" bg="gray.200" pos="fixed" bottom="2rem" right="2rem">
-						<ArrowUpIcon color="gray.600" />
-					</Circle>
-				</a>
-			</motion.div>
-		)
+		<AnimatePresence>
+			{toTopIsShown && (
+				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+					<a href="#" style={{ display: "block" }}>
+						<Circle size="50px" bg="gray.200" pos="fixed" bottom="2rem" right="2rem">
+							<ArrowUpIcon color="gray.600" />
+						</Circle>
+					</a>
+				</motion.div>
+			)}
+		</AnimatePresence>
 	);
 };
 

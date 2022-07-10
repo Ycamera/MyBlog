@@ -23,7 +23,7 @@ function ContentLayout({ children, router }) {
 				<Box
 					zIndex="1"
 					pos="absolute"
-					bg="gray.200"
+					bg={{ base: "transparent", xl: "gray.200" }}
 					left="0"
 					w="50%"
 					minH="calc(100vh - 50px)"
@@ -40,7 +40,7 @@ function ContentLayout({ children, router }) {
 						maxW="1000px"
 						pb="200px"
 						mx="auto"
-						px={{ base: "1rem", md: "50px" }}
+						px={{ base: "1.5rem", sm: "2rem", md: "50px" }}
 						bg="white"
 						overflow={"hidden"}
 					>

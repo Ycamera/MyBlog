@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }) {
 				<title>暇な人の技術ブログ（仮）</title>
 				<Script
 					src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"
-					onLoad={() => {
+					onloads={() => {
 						console.log("test");
 					}}
 				/>

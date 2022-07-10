@@ -5,6 +5,7 @@ import { keysOfTag } from "./keys/tag.js";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { MouseCursorContext } from "./MouseCursorLayout.jsx";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
 const TagsInSidebar = ({ tagsIsOpen }) => {
 	const router = useRouter();
@@ -32,7 +33,7 @@ const TagsInSidebar = ({ tagsIsOpen }) => {
 										size="5px"
 										bg="cyan.600"
 										//ml={"30%"}
-										ml={{ base: "20%", xl: "30%" }}
+										ml={{ base: "25%", lg: "20%", xl: "30%" }}
 										mr="10px"
 										opacity={current ? 1 : 0}
 										transitionDuration="0.5s"
@@ -48,23 +49,23 @@ const TagsInSidebar = ({ tagsIsOpen }) => {
 		);
 	});
 };
-
-export function Sidebar() {
+const Bar = ({ width = { base: 0, lg: "200px", xl: "300px" }, display = { base: "none", lg: "block" } }) => {
 	const [tagsIsOpen, setTagsIsOpen] = useState(true);
 	const { mouseLeave } = useContext(MouseCursorContext);
 
 	return (
 		<Box
-			w={{ base: 0, lg: "200px", xl: "300px" }}
+			w={width}
 			zIndex="10"
-			h="100%"
+			h="100vh"
 			minH="calc(100vh - 50px)"
 			position="sticky"
 			top="50px"
 			onMouseEnter={mouseLeave}
 			cursor="default"
+			bg="gray.200"
 		>
-			<Box bg="gray.200" m="0" display={{ base: "none", lg: "block" }}>
+			<Box m="0" display={display}>
 				<VStack mt="50px">
 					<Button
 						w="100%"
@@ -81,5 +82,87 @@ export function Sidebar() {
 				</VStack>
 			</Box>
 		</Box>
+	);
+};
+
+const MenuIcon = ({ icon }) => {
+	return (
+		<motion.div
+			key={icon}
+			initial={{ opacity: 0, y: -10 }}
+			animate={{ opacity: 1, y: 0 }}
+			exit={{ opacity: 0, y: 10 }}
+		>
+			{icon === "closeIcon" ? (
+				<CloseIcon h={"20px"} w={"20px"} zIndex="1" />
+			) : (
+				<HamburgerIcon h={"30px"} w={"30px"} zIndex="1" />
+			)}
+		</motion.div>
+	);
+};
+export function Sidebar() {
+	const [menuShow, setMenuShow] = useState(false);
+
+	function menuToggle() {
+		setMenuShow((prev) => !prev);
+	}
+	function menuDisable() {
+		setMenuShow(false);
+	}
+
+	return (
+		<>
+			<Flex pos="fixed" zIndex="100" display={{ base: "flex", lg: "none" }}>
+				<AnimatePresence>
+					{menuShow && (
+						<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+							<Box
+								pos="absolute"
+								bg="gray.400"
+								opacity={0.5}
+								w="100vw"
+								h="100vh"
+								onClick={menuDisable}
+							></Box>
+						</motion.div>
+					)}
+				</AnimatePresence>
+				<AnimatePresence>
+					{menuShow && (
+						<motion.div
+							initial={{ opacity: 0, x: "-100%" }}
+							animate={{ opacity: 1, x: "0" }}
+							exit={{ opacity: 0, x: "-100%" }}
+							style={{ background: "#E2E8F0" }}
+							transition={{ duration: "0.2", type: "spring", stiffness: 500, damping: 50 }}
+						>
+							<Bar width="250px" display="block" />
+						</motion.div>
+					)}
+				</AnimatePresence>
+
+				<Flex
+					onClick={menuToggle}
+					alignItems={"center"}
+					justifyContent="center"
+					w="50px"
+					h="50px"
+					zIndex="15"
+					display={{ base: "flex", lg: "none" }}
+					cursor="pointer"
+					pos="absolute"
+					top="0"
+					left="0"
+				>
+					<AnimatePresence>
+						{menuShow && <MenuIcon icon="closeIcon" />}
+						{!menuShow && <MenuIcon icon="humberger" />}
+					</AnimatePresence>
+				</Flex>
+			</Flex>
+
+			<Bar />
+		</>
 	);
 }
