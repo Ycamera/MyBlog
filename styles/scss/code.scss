@@ -7,9 +7,14 @@
 
 .code {
 	.notCopyable {
-		display: inline-block;
 		@extend %notCopyable;
 	}
+	pre {
+		.notCopyable {
+			display: inline-block;
+		}
+	}
+
 	$CodeBg: #1f2631;
 
 	$blue50: #ebf8ff;

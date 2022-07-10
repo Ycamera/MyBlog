@@ -10,6 +10,7 @@ import Head from "next/head";
 import NextPreviousContent from "../../components/NextPreviousContent";
 import MyHead from "/components/MyHead";
 import convertMarkdownIntoHtml from "/lib/convertMarkdownIntoHtml";
+import MotionLayout from "../../components/MotionLayout";
 
 export const getStaticPaths = async () => {
 	const data = await getArticles();
@@ -98,121 +99,35 @@ export default function Post({ posts, post, router }) {
 	}, [content]);
 
 	return (
-		<>
-			<Head>
-				<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js" />
-			</Head>
-
+		<MotionLayout>
 			<MyHead type="article" title={title} description={description} />
 
 			{html && tableOfContents && (
-				<motion.div
-					key={id}
-					initial={{ opacity: 0, y: 10 }}
-					animate={{ opacity: 1, y: 0 }}
-					exit={{ opacity: 0, y: -10 }}
-					transition={{ type: "spring" }}
-				>
-					<Box mt="50px">
-						<Box mb="3">
-							<Heading
-								as="h1"
-								mb="2rem"
-								color="gray.700"
-								fontSize={{ base: "1.6rem", sm: "1.8rem", md: "2.1rem" }}
-							>
-								{title}
-							</Heading>
-							<Tag tags={[tag1, tag2, tag3, tag4, tag5]} />
-						</Box>
-						{tableOfContents && <TableOfContents tableOfContents={tableOfContents} />}
-						<Box mt="50" className="code">
-							{html}
-
-							<Flex mt="10" justifyContent={"end"}>
-								<Box fontWeight="bold" bg="cyan.50" color="blue.900" rounded="5" p="3">
-									{"</以上>"}
-								</Box>
-							</Flex>
-						</Box>
-						<NextPreviousContent id={id} posts={posts} />
+				<Box mt="50px">
+					<Box mb="3">
+						<Heading
+							as="h1"
+							mb="2rem"
+							color="gray.700"
+							fontSize={{ base: "1.6rem", sm: "1.8rem", md: "2.1rem" }}
+						>
+							{title}
+						</Heading>
+						<Tag tags={[tag1, tag2, tag3, tag4, tag5]} />
 					</Box>
-				</motion.div>
+					{tableOfContents && <TableOfContents tableOfContents={tableOfContents} />}
+					<Box mt="50" className="code">
+						{html}
+
+						<Flex mt="10" justifyContent={"end"}>
+							<Box fontWeight="bold" bg="cyan.50" color="blue.900" rounded="5" p="3">
+								{"</以上>"}
+							</Box>
+						</Flex>
+					</Box>
+					<NextPreviousContent id={id} posts={posts} />
+				</Box>
 			)}
-		</>
+		</MotionLayout>
 	);
 }
-
-/*
-export default function Post({ articles, router }) {
-	const [post, setPost] = useState({});
-	const id = router?.query?.id;
-
-	const { title, content, tag1, tag2, tag3, tag4, tag5, description } = post?.attributes ? post?.attributes : {};
-
-	const [html, setHtml] = useState();
-	const [tableOfContents, setTableOfContents] = useState([]);
-
-	useEffect(() => {
-		set();
-		async function set() {
-			setPost(await getArticleById(id, false, articles));
-		}
-	}, [id, articles]);
-
-	useEffect(() => {
-		set();
-		async function set() {
-			const { htmlData, tableOfContentsData } = await convertMarkdownIntoHtml(content);
-
-			setHtml(htmlData);
-			setTableOfContents(tableOfContentsData);
-		}
-	}, [content]);
-
-	return (
-		<>
-			<Head>
-				<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js" />
-			</Head>
-
-			<MyHead type="article" title={title} description={description} />
-
-			{html && tableOfContents && (
-				<motion.div
-					key={id}
-					initial={{ opacity: 0, y: 10 }}
-					animate={{ opacity: 1, y: 0 }}
-					exit={{ opacity: 0, y: -10 }}
-					transition={{ type: "spring" }}
-				>
-					<Box mt="50px">
-						<Box m="5" mb="3">
-							<Heading
-								as="h1"
-								mb="2rem"
-								color="gray.700"
-								fontSize={{ base: "1.6rem", sm: "1.8rem", md: "2.1rem" }}
-							>
-								{title}
-							</Heading>
-							<Tag tags={[tag1, tag2, tag3, tag4, tag5]} />
-						</Box>
-						{tableOfContents && <TableOfContents tableOfContents={tableOfContents} />}
-						<Box mt="50" className="code">
-							{html}
-
-							<Flex mt="10" justifyContent={"end"}>
-								<Box fontWeight="bold" bg="cyan.50" color="blue.900" rounded="5" p="3">
-									{"</以上>"}
-								</Box>
-							</Flex>
-						</Box>
-						<NextPreviousContent id={id} />
-					</Box>
-				</motion.div>
-			)}
-		</>
-	);
-}
-*/

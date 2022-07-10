@@ -35,25 +35,18 @@ export default function Tag({ posts, router }) {
 	return (
 		<>
 			<MyHead type="article" title={`#${tag}`} description={`サイト内のタグ検索:${tag}`} />
-			<Heading as="h1" py="50px" textAlign={"center"} color="gray.700" className={codeStyle["code-heading"]}>
-				{tag}
-			</Heading>
+			<motion.div
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0 }}
+				transition={{ duration: 0.2 }}
+			>
+				<Heading as="h1" py="50px" textAlign={"center"} color="gray.700" className={codeStyle["code-heading"]}>
+					{tag}
+				</Heading>
+			</motion.div>
 
 			<PostList posts={posts} />
 		</>
 	);
 }
-
-/**
-export default function Tag({ articles, router }) {
-	const tag = router?.query?.tag;
-
-	const [posts, setPosts] = useState([]);
-
-	useEffect(() => {
-		set();
-		async function set() {
-			setPosts(await getArticlesByTag(tag, false, articles));
-		}
-	}, [tag, articles]);
-	 */

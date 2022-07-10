@@ -66,7 +66,7 @@ const PageContent = () => {
 			h="100%"
 			alignItems="center"
 			justifyContent={"center"}
-			className="font-stick"
+			className="font-stick notCopyable"
 			m="auto"
 			top="50%"
 			transform="translateY(-50%)"

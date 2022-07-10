@@ -9,7 +9,7 @@
   letter-spacing: 0.1rem;
   line-height: 1.8rem;
 }
-.code .notCopyable {
+.code pre .notCopyable {
   display: inline-block;
 }
 .code :not(h2) + pre {

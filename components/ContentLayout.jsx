@@ -3,8 +3,8 @@ import { Container, Box, Flex } from "@chakra-ui/react";
 import { Sidebar } from "/components/Sidebar";
 import { useContext } from "react";
 import { MouseCursorContext } from "./MouseCursorLayout";
+import { motion } from "framer-motion";
 
-//h="minMax(100vh,auto)"
 function ContentLayout({ children, router }) {
 	const { mouseLeave, mouseOverPageNotFound } = useContext(MouseCursorContext);
 
@@ -16,7 +16,9 @@ function ContentLayout({ children, router }) {
 				position={"reative"}
 				cursor={router?.pathname === "/404" ? "none" : "default"}
 				onMouseLeave={mouseLeave}
-				onMouseEnter={mouseOverPageNotFound}
+				onMouseEnter={() => {
+					if (router.pathname === "/404") mouseOverPageNotFound();
+				}}
 			>
 				<Box
 					zIndex="1"

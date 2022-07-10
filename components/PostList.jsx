@@ -73,7 +73,7 @@ const Post = ({ post, i }) => {
 					initial={{ y: 10, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					exit={{ opacity: 0 }}
-					transition={{ delay: i * 0.1, type: "spring", duration: 0.8 }}
+					transition={{ delay: i * 0.05 + 0.1, type: "spring", duration: 0.5 }}
 					whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
 				>
 					<Box
