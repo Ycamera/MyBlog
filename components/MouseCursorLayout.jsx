@@ -71,8 +71,8 @@ export default function MouseCursorLayout({ children, router }) {
 
 	return (
 		<div ref={ref} style={{ height: "100%", width: "100%" }}>
-			<motion.div className="mouse-cursor" variants={variants} animate={cursorVariant}>
-				<Flex className="mouse-cursor-box">
+			<motion.div className="mouse-cursor" variants={variants} initial={"default"} animate={cursorVariant}>
+				<Flex className="mouse-cursor-box" transform="translate(-50%,-50%)">
 					<span className="mouse-cursor-text font-stick">
 						{cursorText}
 						<WarningTwoIcon />

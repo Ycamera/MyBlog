@@ -5,7 +5,7 @@ import { Flex, Box, Heading } from "@chakra-ui/react";
 import { getArticles } from "../lib/getArticles.mjs";
 
 import { PostList } from "../components/PostList";
-import { useEffect } from "react";
+
 import MyHead from "../components/MyHead.jsx";
 import MotionLayout from "../components/MotionLayout.jsx";
 
@@ -36,7 +36,7 @@ export default function Home({ posts }) {
 				color="gray.700"
 				className="font-stick"
 			>
-				暇な人の技術ブログ（仮）
+				暇な人の技術メモ（仮）
 			</Heading>
 
 			{

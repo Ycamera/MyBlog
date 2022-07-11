@@ -49,7 +49,11 @@ const TagsInSidebar = ({ tagsIsOpen }) => {
 		);
 	});
 };
-const Bar = ({ width = { base: 0, lg: "200px", xl: "300px" }, display = { base: "none", lg: "block" } }) => {
+const Bar = ({
+	width = { base: 0, lg: "200px", xl: "300px" },
+	display = { base: "none", lg: "block" },
+	mt = "100px",
+}) => {
 	const [tagsIsOpen, setTagsIsOpen] = useState(true);
 	const { mouseLeave } = useContext(MouseCursorContext);
 
@@ -58,15 +62,15 @@ const Bar = ({ width = { base: 0, lg: "200px", xl: "300px" }, display = { base: 
 			w={width}
 			zIndex="10"
 			h="100vh"
-			minH="calc(100vh - 50px)"
+			minH="calc(100vh)"
 			position="sticky"
-			top="50px"
+			top="0"
 			onMouseEnter={mouseLeave}
 			cursor="default"
 			bg="gray.200"
 		>
 			<Box m="0" display={display}>
-				<VStack mt="50px">
+				<VStack mt={mt}>
 					<Button
 						w="100%"
 						bg="transparent"
@@ -101,7 +105,8 @@ const MenuIcon = ({ icon }) => {
 		</motion.div>
 	);
 };
-export function Sidebar() {
+
+const MobileBar = () => {
 	const [menuShow, setMenuShow] = useState(false);
 
 	function menuToggle() {
@@ -112,56 +117,54 @@ export function Sidebar() {
 	}
 
 	return (
-		<>
-			<Flex pos="fixed" zIndex="100" display={{ base: "flex", lg: "none" }}>
-				<AnimatePresence>
-					{menuShow && (
-						<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-							<Box
-								pos="absolute"
-								bg="gray.400"
-								opacity={0.5}
-								w="100vw"
-								h="100vh"
-								onClick={menuDisable}
-							></Box>
-						</motion.div>
-					)}
-				</AnimatePresence>
-				<AnimatePresence>
-					{menuShow && (
-						<motion.div
-							initial={{ opacity: 0, x: "-100%" }}
-							animate={{ opacity: 1, x: "0" }}
-							exit={{ opacity: 0, x: "-100%" }}
-							style={{ background: "#E2E8F0" }}
-							transition={{ duration: "0.2", type: "spring", stiffness: 500, damping: 50 }}
-						>
-							<Bar width="250px" display="block" />
-						</motion.div>
-					)}
-				</AnimatePresence>
+		<Flex pos="fixed" zIndex="100" display={{ base: "flex", lg: "none" }} mt="50px">
+			<AnimatePresence>
+				{menuShow && (
+					<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+						<Box pos="absolute" bg="gray.400" opacity={0.5} w="100vw" h="100vh" onClick={menuDisable}></Box>
+					</motion.div>
+				)}
+			</AnimatePresence>
+			<AnimatePresence>
+				{menuShow && (
+					<motion.div
+						initial={{ opacity: 0, x: "-100%" }}
+						animate={{ opacity: 1, x: "0" }}
+						exit={{ opacity: 0, x: "-100%" }}
+						style={{ background: "#E2E8F0" }}
+						transition={{ duration: "0.2", type: "spring", stiffness: 500, damping: 50 }}
+					>
+						<Bar width="250px" display="block" mt="50px" />
+					</motion.div>
+				)}
+			</AnimatePresence>
 
-				<Flex
-					onClick={menuToggle}
-					alignItems={"center"}
-					justifyContent="center"
-					w="50px"
-					h="50px"
-					zIndex="15"
-					display={{ base: "flex", lg: "none" }}
-					cursor="pointer"
-					pos="absolute"
-					top="0"
-					left="0"
-				>
-					<AnimatePresence>
-						{menuShow && <MenuIcon icon="closeIcon" />}
-						{!menuShow && <MenuIcon icon="humberger" />}
-					</AnimatePresence>
-				</Flex>
+			<Flex
+				onClick={menuToggle}
+				alignItems={"center"}
+				justifyContent="center"
+				w="50px"
+				h="50px"
+				zIndex="15"
+				display={{ base: "flex", lg: "none" }}
+				cursor="pointer"
+				pos="absolute"
+				top="0"
+				left="0"
+			>
+				<AnimatePresence>
+					{menuShow && <MenuIcon icon="closeIcon" />}
+					{!menuShow && <MenuIcon icon="humberger" />}
+				</AnimatePresence>
 			</Flex>
+		</Flex>
+	);
+};
 
+export function Sidebar() {
+	return (
+		<>
+			<MobileBar />
 			<Bar />
 		</>
 	);

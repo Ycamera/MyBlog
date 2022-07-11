@@ -1,4 +1,5 @@
-import { Flex, Box, Heading, Text, Circle } from "@chakra-ui/react";
+import { Flex, Box, Heading, Text, Circle, HStack } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
@@ -112,8 +113,118 @@ const Post = ({ post, i }) => {
 	);
 };
 
-export function PostList({ posts }) {
-	return posts?.map((post, i) => {
-		return <Post post={post} i={i} key={`${post.id}${Math.random()}`} />;
-	});
+const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
+	const numberOfPage = Math.ceil(posts.length / numberOfPosts);
+
+	const styleBox = {
+		w: "30px",
+		h: "30px",
+		bg: "gray.100",
+		justifyContent: "center",
+		alignItems: "center",
+		cursor: "pointer",
+		borderRadius: "5px",
+	};
+
+	function pageNumValid(num, calc) {
+		if (num + calc <= 0) return;
+		if (num + calc > numberOfPage) return;
+		return num + calc;
+	}
+
+	const PreviousPage = () => {
+		const previous = pageNum - 1;
+		const valid = previous > 0;
+
+		function previousPage() {
+			if (valid) setPageNum(previous);
+		}
+
+		return (
+			valid && (
+				<Flex {...styleBox} onClick={previousPage}>
+					<ChevronLeftIcon />
+				</Flex>
+			)
+		);
+	};
+	const NextPage = () => {
+		const next = pageNum + 1;
+		const valid = next <= numberOfPage;
+
+		function nextPage() {
+			if (valid) setPageNum(next);
+		}
+
+		return (
+			valid && (
+				<Flex {...styleBox} onClick={nextPage}>
+					<ChevronRightIcon />
+				</Flex>
+			)
+		);
+	};
+
+	const Num = ({ text, style }) => {
+		return text ? (
+			<Flex {...styleBox} onClick={() => setPageNum(text)} {...style}>
+				{text}
+			</Flex>
+		) : (
+			<Flex w="30px" h="30px" borderRadius="5px" />
+		);
+	};
+
+	return (
+		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+			<HStack justifyContent={"center"} mt="50px" gap="5px">
+				<PreviousPage />
+				<Num text={pageNumValid(pageNum, -2)} />
+				<Num text={pageNumValid(pageNum, -1)} />
+				<Num text={pageNum} style={{ bg: "#fff", boxShadow: "0 0px 3px #b1b8c1" }} />
+				<Num text={pageNumValid(pageNum, 1)} />
+				<Num text={pageNumValid(pageNum, 2)} />
+				<NextPage />
+			</HStack>
+		</motion.div>
+	);
+};
+
+const NoPosts = () => {
+	return (
+		<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+			<Flex
+				className="font-stick"
+				justifyContent={"center"}
+				alignitems="center"
+				fontSize="1.2rem"
+				color="blue.700"
+			>
+				まだ投稿がないようです。
+			</Flex>
+		</motion.div>
+	);
+};
+
+export function PostList({ posts, page = 1 }) {
+	const [pageNum, setPageNum] = useState(page);
+	const numberOfPosts = 5;
+	const pageStart = pageNum * numberOfPosts - numberOfPosts;
+	const postEmpty = !posts?.length;
+	console.log(posts);
+
+	const Posts = ({ posts }) => {
+		return posts?.slice(pageStart, pageNum * numberOfPosts).map((post, i) => {
+			return <Post post={post} i={i} key={`${post.id}${Math.random()}`} />;
+		});
+	};
+	return (
+		<>
+			<Posts posts={posts} />
+			{postEmpty && <NoPosts />}
+			{!postEmpty && (
+				<PostPage posts={posts} pageNum={pageNum} setPageNum={setPageNum} numberOfPosts={numberOfPosts} />
+			)}
+		</>
+	);
 }

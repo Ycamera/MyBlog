@@ -1,13 +1,14 @@
 import "../styles/globals.css";
 import Nav from "/components//Nav";
-import { ChakraProvider, Box } from "@chakra-ui/react";
+import Footer from "../components/Footer";
+import { ChakraProvider } from "@chakra-ui/react";
 
 import MouseCursorLayout from "../components/MouseCursorLayout";
 import ContentLayout from "/components/ContentLayout";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
-import { getArticles } from "../lib/getArticles.mjs";
+
 import Head from "next/head";
 import Script from "next/script";
 import { AnimatePresence } from "framer-motion";
@@ -20,13 +21,7 @@ function MyApp({ Component, pageProps }) {
 		<ChakraProvider>
 			<Head>
 				<meta property="og:site_name" content="暇な人の技術ブログ（仮）" />
-				<title>暇な人の技術ブログ（仮）</title>
-				<Script
-					src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"
-					onloads={() => {
-						console.log("test");
-					}}
-				/>
+				<title>暇な人の技術メモ（仮）</title>
 			</Head>
 
 			<MouseCursorLayout router={router}>
@@ -36,6 +31,7 @@ function MyApp({ Component, pageProps }) {
 						<Component {...pageProps} router={router} key={router.asPath.replace(/#.*/g, "")} />
 					</AnimatePresence>
 				</ContentLayout>
+				<Footer router={router} />
 			</MouseCursorLayout>
 		</ChakraProvider>
 	);

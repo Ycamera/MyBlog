@@ -32,7 +32,7 @@ const ToTopButton = () => {
 	);
 };
 
-function Logo({ text, show }) {
+function Logo({ text, show = true }) {
 	return (
 		show && (
 			<motion.div
@@ -43,7 +43,7 @@ function Logo({ text, show }) {
 			>
 				<NextLink href="/">
 					<a style={{ height: "100%" }}>
-						<Flex px="5" h="100%" w="100%" whiteSpace="nowrap" alignItems="center" justifyContent="center">
+						<Flex px="5" h="100%" w="75px" whiteSpace="nowrap" alignItems="center" justifyContent="center">
 							{text}
 						</Flex>
 					</a>
@@ -55,12 +55,12 @@ function Logo({ text, show }) {
 
 export default function Nav({ router }) {
 	const { mouseLeave } = useContext(MouseCursorContext);
-	const navStyle = { width: "100px", textAlign: "center" };
+	const navStyle = { width: "75px", textAlign: "center" };
 
 	const topPage = router.asPath === "/";
 
 	return (
-		<Box zIndex={100} pos={"sticky"} top="0" className="nav" fontWeight="bold" onMouseEnter={mouseLeave}>
+		<Box zIndex={100} pos={"fixed"} top="0" w="100%" className="nav" fontWeight="bold" onMouseEnter={mouseLeave}>
 			<Flex
 				h="50px"
 				w="100%"
@@ -71,8 +71,9 @@ export default function Nav({ router }) {
 				boxShadow={"0 0px 5px #2a4365"}
 			>
 				<Box pos="relative" w="120px" h="100%">
-					<Logo text="Logo" show={topPage} />
-					<Logo text="Free time" show={!topPage} />
+					<Logo text="Logo" />
+					{/* <Logo text="Logo" show={topPage} />
+					<Logo text="Free time" show={!topPage} /> */}
 				</Box>
 				<HStack>
 					<NextLink href="/">

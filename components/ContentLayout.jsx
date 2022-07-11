@@ -11,9 +11,9 @@ function ContentLayout({ children, router }) {
 	return (
 		<>
 			<Flex
+				pos="relative"
 				justifyContent="center"
 				w="100%"
-				position={"reative"}
 				cursor={router?.pathname === "/404" ? "none" : "default"}
 				onMouseLeave={mouseLeave}
 				onMouseEnter={() => {
@@ -27,7 +27,7 @@ function ContentLayout({ children, router }) {
 					left="0"
 					w="50%"
 					minH="calc(100vh - 50px)"
-					h="calc(100% - 50px)"
+					h="100%"
 					display={{ base: "none", lg: "block" }}
 					cursor="default"
 					onMouseEnter={mouseLeave}
@@ -38,6 +38,7 @@ function ContentLayout({ children, router }) {
 						flex="1"
 						minH="calc(100vh - 50px)"
 						maxW="1000px"
+						pt={"50px"}
 						pb="200px"
 						mx="auto"
 						px={{ base: "1.5rem", sm: "2rem", md: "50px" }}
