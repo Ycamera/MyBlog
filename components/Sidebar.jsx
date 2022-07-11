@@ -6,6 +6,7 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { MouseCursorContext } from "./MouseCursorLayout.jsx";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { useEffect } from "react";
 
 const TagsInSidebar = ({ tagsIsOpen }) => {
 	const router = useRouter();
@@ -108,6 +109,7 @@ const MenuIcon = ({ icon }) => {
 
 const MobileBar = () => {
 	const [menuShow, setMenuShow] = useState(false);
+	const router = useRouter();
 
 	function menuToggle() {
 		setMenuShow((prev) => !prev);
@@ -115,6 +117,7 @@ const MobileBar = () => {
 	function menuDisable() {
 		setMenuShow(false);
 	}
+	useEffect(() => menuDisable(), [router.route]);
 
 	return (
 		<Flex pos="fixed" zIndex="100" display={{ base: "flex", lg: "none" }} mt="50px">

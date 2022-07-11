@@ -11,7 +11,7 @@ async function getArticles() {
 
 async function saveArticle() {
 	const articles = await getArticles();
-	fs.writeFile("./getContentFromStrapi/articles.js", JSON.stringify(articles), (err, file) => {
+	fs.writeFile("./getContentFromStrapi/articles.json", JSON.stringify(articles), (err, file) => {
 		if (err) {
 		} else {
 			console.log("succesfully recieved contents");

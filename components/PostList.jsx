@@ -14,8 +14,8 @@ const Published = ({ publishedAt }) => {
 			letterSpacing={1}
 			fontWeight="600"
 			color="gray.500"
-			textAlign={{ md: "center" }}
-			mt="1"
+			textAlign={{ base: "right", md: "center" }}
+			mt={{ base: 0, md: 1 }}
 			mb={{ base: 0, md: 1 }}
 		>
 			{date}
@@ -100,7 +100,7 @@ const Post = ({ post, i }) => {
 							<Published publishedAt={publishedAt} />
 						</Flex>
 
-						<Box px="5" py="5">
+						<Box px="5" py={{ base: 3, md: 5 }}>
 							<Text color="gray.600" noOfLines={{ base: 3, sm: 2 }}>
 								{description}
 							</Text>
@@ -125,6 +125,10 @@ const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
 		cursor: "pointer",
 		borderRadius: "5px",
 	};
+	const styleBoxEmpty = {
+		w: "30px",
+		h: "30px",
+	};
 
 	function pageNumValid(num, calc) {
 		if (num + calc <= 0) return;
@@ -140,12 +144,12 @@ const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
 			if (valid) setPageNum(previous);
 		}
 
-		return (
-			valid && (
-				<Flex {...styleBox} onClick={previousPage}>
-					<ChevronLeftIcon />
-				</Flex>
-			)
+		return valid ? (
+			<Flex {...styleBox} onClick={previousPage}>
+				<ChevronLeftIcon />
+			</Flex>
+		) : (
+			<Flex {...styleBoxEmpty} />
 		);
 	};
 	const NextPage = () => {
@@ -156,12 +160,12 @@ const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
 			if (valid) setPageNum(next);
 		}
 
-		return (
-			valid && (
-				<Flex {...styleBox} onClick={nextPage}>
-					<ChevronRightIcon />
-				</Flex>
-			)
+		return valid ? (
+			<Flex {...styleBox} onClick={nextPage}>
+				<ChevronRightIcon />
+			</Flex>
+		) : (
+			<Flex {...styleBoxEmpty} />
 		);
 	};
 
@@ -171,7 +175,7 @@ const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
 				{text}
 			</Flex>
 		) : (
-			<Flex w="30px" h="30px" borderRadius="5px" />
+			<Flex {...styleBoxEmpty} />
 		);
 	};
 
@@ -211,7 +215,6 @@ export function PostList({ posts, page = 1 }) {
 	const numberOfPosts = 5;
 	const pageStart = pageNum * numberOfPosts - numberOfPosts;
 	const postEmpty = !posts?.length;
-	console.log(posts);
 
 	const Posts = ({ posts }) => {
 		return posts?.slice(pageStart, pageNum * numberOfPosts).map((post, i) => {
