@@ -121,7 +121,14 @@ const MobileBar = () => {
 			<AnimatePresence>
 				{menuShow && (
 					<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-						<Box pos="absolute" bg="gray.400" opacity={0.5} w="100vw" h="100vh" onClick={menuDisable}></Box>
+						<Box
+							pos="absolute"
+							bg="gray.400"
+							opacity={0.5}
+							w="100vw"
+							h="100vh + 200px"
+							onClick={menuDisable}
+						></Box>
 					</motion.div>
 				)}
 			</AnimatePresence>

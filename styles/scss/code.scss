@@ -11,7 +11,7 @@
 	}
 	pre {
 		.notCopyable {
-			display: inline-block;
+			display: inline;
 		}
 	}
 
@@ -113,7 +113,7 @@
 			ol,
 			li,
 			span {
-				line-height: 1.2rem;
+				line-height: 1.8rem;
 			}
 		}
 	}

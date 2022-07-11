@@ -10,7 +10,7 @@
   line-height: 1.8rem;
 }
 .code pre .notCopyable {
-  display: inline-block;
+  display: inline;
 }
 .code :not(h2) + pre {
   margin-top: 2rem;
@@ -86,7 +86,7 @@
 .code pre ol,
 .code pre li,
 .code pre span {
-    line-height: 1.2rem;
+    line-height: 1.8rem;
   }
 }
 .code .h2-linenum {
