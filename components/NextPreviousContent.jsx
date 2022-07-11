@@ -39,7 +39,7 @@ const NextPreviousButton = ({ id, title, icon }) => {
 							{left && <IconButton direc={"left"} />}
 
 							<Text
-								fontSize={{ base: "0.4rem", md: "1rem" }}
+								fontSize={{ base: "0.8rem", md: "1rem" }}
 								borderBottom="solid 3px"
 								borderColor="gray.200"
 								color="gray.600"
