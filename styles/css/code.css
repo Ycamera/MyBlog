@@ -68,6 +68,7 @@
     display: block;
     margin-left: 0;
     font-size: 1.3rem !important;
+    margin-bottom: 1rem;
   }
   .code h2::before {
     content: "";
@@ -78,6 +79,15 @@
   .code .h2-linenum {
     top: 0 !important;
   }
+  .code pre {
+    font-size: 0.4rem;
+  }
+  .code pre code,
+.code pre ol,
+.code pre li,
+.code pre span {
+    line-height: 1.2rem;
+  }
 }
 .code .h2-linenum {
   position: relative;
@@ -85,6 +95,9 @@
   font-weight: bold;
   font-size: 2rem;
   color: #94bcf9;
+}
+.code pre {
+  font-size: 0.9rem;
 }
 .code .highlight {
   animation: light 2.5s ease-in-out forwards;

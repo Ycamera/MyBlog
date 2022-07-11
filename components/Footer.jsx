@@ -4,7 +4,7 @@ import NextLink from "next/link";
 export default function Footer() {
 	return (
 		<Flex
-			zIndex={100}
+			zIndex={10}
 			h="80px"
 			w="100%"
 			bg="white"

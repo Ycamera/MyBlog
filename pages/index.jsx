@@ -21,7 +21,7 @@ export const getStaticProps = async () => {
 
 export default function Home({ posts }) {
 	return (
-		<MotionLayout>
+		<MotionLayout key="home">
 			<MyHead
 				type="blog"
 				title="暇な人の技術ブログ"

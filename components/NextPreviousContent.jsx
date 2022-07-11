@@ -39,6 +39,7 @@ const NextPreviousButton = ({ id, title, icon }) => {
 							{left && <IconButton direc={"left"} />}
 
 							<Text
+								fontSize={{ base: "0.4rem", md: "1rem" }}
 								borderBottom="solid 3px"
 								borderColor="gray.200"
 								color="gray.600"
@@ -98,44 +99,3 @@ export default function NextPreviousContent({ id, posts }) {
 		</Flex>
 	);
 }
-
-/*
-export default function NextPreviousContent({ id }) {
-	const articles = useContext(ArticleContext); 
-	const [next, setNext] = useState({});
-	const [previous, setPrevious] = useState({});
-
-	useEffect(() => {
-		set();
-		function set() {
-			const index = articles?.findIndex((article) => String(article.id) === id);
-			const previousId = index + 1;
-			const nextId = index - 1;
-
-			if (previousId < articles.length) {
-				const { title } = articles[previousId]?.attributes;
-				setPrevious({ id: convertIndexToId(previousId), title: title });
-			} else {
-				setPrevious({});
-			}
-
-			if (nextId >= 0) {
-				const { title } = articles[nextId]?.attributes;
-				setNext({ id: convertIndexToId(nextId), title: title });
-			} else {
-				setNext({});
-			}
-		}
-		function convertIndexToId(index) {
-			return articles[index]?.id;
-		}
-	}, [id]);
-
-	return (
-		<Flex justifyContent={"space-between"} mt="50px">
-			<NextPreviousButton {...previous} icon="left" />
-			<NextPreviousButton {...next} icon="right" />
-		</Flex>
-	);
-}
-*/
