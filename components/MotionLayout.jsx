@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+
 export default function MotionLayout({ children }) {
 	const variants = {
 		initial: {

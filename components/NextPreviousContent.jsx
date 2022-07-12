@@ -4,6 +4,7 @@ import { Box, Text, Flex, Heading, Icon } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
+import { scrollToTop } from "../lib/scrollToTop";
 
 const NextPreviousButton = ({ id, title, icon }) => {
 	const left = icon === "left";

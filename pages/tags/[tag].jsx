@@ -5,7 +5,7 @@ import { keysOfTag } from "../../components/keys/tag.js";
 import { Heading } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import codeStyle from "/styles/css/decoration.module.css";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import MyHead from "../../components/MyHead.jsx";
 
@@ -35,18 +35,26 @@ export default function Tag({ posts, router }) {
 	return (
 		<>
 			<MyHead type="article" title={`#${tag}`} description={`サイト内のタグ検索:${tag}`} />
-			<motion.div
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				exit={{ opacity: 0 }}
-				transition={{ duration: 0.2 }}
-			>
-				<Heading as="h1" py="50px" textAlign={"center"} color="gray.700" className={codeStyle["code-heading"]}>
-					{tag}
-				</Heading>
-			</motion.div>
-
-			<PostList posts={posts} />
+			<AnimatePresence exitBeforeEnter>
+				<motion.div
+					key={router.route}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					transition={{ duration: 0.2 }}
+				>
+					<Heading
+						as="h1"
+						py="50px"
+						textAlign={"center"}
+						color="gray.700"
+						className={codeStyle["code-heading"]}
+					>
+						{tag}
+					</Heading>
+				</motion.div>
+				<PostList posts={posts} />
+			</AnimatePresence>
 		</>
 	);
 }

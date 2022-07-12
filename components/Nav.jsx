@@ -57,8 +57,6 @@ export default function Nav({ router }) {
 	const { mouseLeave } = useContext(MouseCursorContext);
 	const navStyle = { width: "75px", textAlign: "center" };
 
-	const topPage = router.asPath === "/";
-
 	return (
 		<Box zIndex={100} pos={"fixed"} top="0" w="100%" className="nav" fontWeight="bold" onMouseEnter={mouseLeave}>
 			<Flex

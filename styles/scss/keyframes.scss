@@ -1,5 +1,5 @@
 .keyframe-clicked-effect-postlist-parent {
-	animation: clickedEffectParent 0.7s ease-in-out forwards;
+	animation: clickedEffectParent 0.9s ease-in-out forwards;
 	@keyframes clickedEffectParent {
 		0%,
 		95% {
@@ -11,21 +11,21 @@
 	}
 }
 .keyframe-clicked-effect-postlist-child {
-	animation: clickedEffect 0.7s ease-in-out forwards;
+	animation: clickedEffect 0.9s ease-in-out forwards;
 
 	@keyframes clickedEffect {
 		0% {
-			opacity: 0.2;
+			opacity: 0.3;
 			visibility: visible;
 			transform: scale(0);
 		}
 		30%,
 		70% {
-			opacity: 0.2;
+			opacity: 0.4;
 		}
 
 		50% {
-			opacity: 0.3;
+			opacity: 0.5;
 			transform: scale(1);
 		}
 

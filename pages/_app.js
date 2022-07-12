@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps }) {
 					<Nav router={router} />
 					<ContentLayout router={router}>
 						<AnimatePresence exitBeforeEnter>
-							<Component {...pageProps} router={router} key={router.asPath.replace(/#.*/g, "")} />
+							<Component {...pageProps} router={router} key={router.route.replace(/#.*/g, "")} />
 						</AnimatePresence>
 					</ContentLayout>
 					<Footer router={router} />

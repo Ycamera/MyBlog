@@ -3,9 +3,15 @@ import { Container, Box, Flex } from "@chakra-ui/react";
 import { Sidebar } from "/components/Sidebar";
 import React, { useContext, useMemo, useState } from "react";
 import { MouseCursorContext } from "./MouseCursorLayout";
+import { scrollToTop } from "/lib/scrollToTop";
+import { useEffect } from "react";
 
 function ContentLayout({ children, router }) {
 	const { mouseLeave, mouseOverPageNotFound } = useContext(MouseCursorContext);
+
+	useEffect(() => {
+		scrollToTop();
+	}, [router.asPath.replace(/#.*/g, "")]);
 
 	return (
 		<>

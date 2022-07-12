@@ -1,6 +1,5 @@
 import { getArticles, getArticleById } from "/lib/getArticles.mjs";
 import { Box, Flex, Heading, Text, Badge, OrderedList, ListItem } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 
 import NextLink from "next/link";
 import { useState, useEffect } from "react";
@@ -108,7 +107,7 @@ export default function Post({ posts, post, router }) {
 				></script>
 			</Head>
 
-			<MotionLayout>
+			<MotionLayout key={router.asPath.replace(/#.*/g, "")}>
 				<MyHead type="article" title={title} description={description} />
 
 				{html && tableOfContents && (

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState, useContext } from "react";
 import { ListStyleComponent } from "/pages/_app.js";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 const Published = ({ publishedAt, color }) => {
 	const dateData = new Date(publishedAt);
@@ -31,6 +32,7 @@ const ClickEffect = ({ clicked, effectPosition }) => {
 
 	return (
 		<Box
+			blur="5px"
 			w="2000px"
 			h="2000px"
 			pos="absolute"
@@ -44,7 +46,7 @@ const ClickEffect = ({ clicked, effectPosition }) => {
 				w="100%"
 				height="100%"
 				borderRadius="100%"
-				bg="gray.300"
+				bg="#ffffff"
 				className={clicked && "keyframe-clicked-effect-postlist-child"} //Keyframes.scss
 			/>
 		</Box>
@@ -95,6 +97,7 @@ const Post = ({ post, i, listStyle }) => {
 						boxShadow="lg"
 						position="relative"
 						overflow={"hidden"}
+						cursor="pointer"
 					>
 						<Flex
 							px="5"
@@ -130,6 +133,7 @@ const Post = ({ post, i, listStyle }) => {
 
 const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
 	const numberOfPage = Math.ceil(posts.length / numberOfPosts);
+	const router = useRouter();
 
 	const styleBox = {
 		w: "30px",
@@ -197,7 +201,7 @@ const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
 	};
 
 	return (
-		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} key={router.asPath}>
 			<HStack justifyContent={"center"} mt="50px" gap="5px">
 				<PreviousPage />
 				<Num text={pageNumValid(pageNum, -2)} />
@@ -213,7 +217,12 @@ const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
 
 const NoPosts = () => {
 	return (
-		<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+		<motion.div
+			initial={{ opacity: 0, y: 10 }}
+			animate={{ opacity: 1, y: 0 }}
+			exit={{ opacity: 0 }}
+			transition={{ delay: 0.2 }}
+		>
 			<Flex
 				className="font-stick"
 				justifyContent={"center"}
@@ -249,22 +258,24 @@ const ChangeListStyle = ({ setListStyle, listStyle }) => {
 	const buttonColorActive = { bg: "gray.200", color: "gray.600" };
 
 	return (
-		<Flex justifyContent="end" mb="1rem">
-			<Flex borderRadius="5px" overflow={"hidden"} mr="1rem">
-				<StyleChangeButton
-					onClick={() => setListStyle(true)}
-					listColor={!listStyle ? buttonColorNormal : buttonColorActive}
-				>
-					<span className="material-symbols-outlined">format_list_bulleted</span>
-				</StyleChangeButton>
-				<StyleChangeButton
-					onClick={() => setListStyle(false)}
-					listColor={listStyle ? buttonColorNormal : buttonColorActive}
-				>
-					<span className="material-symbols-outlined">grid_view</span>
-				</StyleChangeButton>
+		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+			<Flex justifyContent="end" mb="1rem">
+				<Flex borderRadius="5px" overflow={"hidden"} mr="1rem">
+					<StyleChangeButton
+						onClick={() => setListStyle(true)}
+						listColor={!listStyle ? buttonColorNormal : buttonColorActive}
+					>
+						<span className="material-symbols-outlined">format_list_bulleted</span>
+					</StyleChangeButton>
+					<StyleChangeButton
+						onClick={() => setListStyle(false)}
+						listColor={listStyle ? buttonColorNormal : buttonColorActive}
+					>
+						<span className="material-symbols-outlined">grid_view</span>
+					</StyleChangeButton>
+				</Flex>
 			</Flex>
-		</Flex>
+		</motion.div>
 	);
 };
 
@@ -274,20 +285,22 @@ export function PostList({ posts, page = 1 }) {
 	const pageStart = pageNum * numberOfPosts - numberOfPosts;
 	const postEmpty = !posts?.length;
 
+	const router = useRouter();
+
 	const { listStyle, setListStyle } = useContext(ListStyleComponent);
 
 	const Posts = ({ posts }) => {
 		return (
 			<Flex flexWrap={"wrap"}>
 				{posts?.slice(pageStart, pageNum * numberOfPosts).map((post, i) => {
-					return <Post post={post} i={i} key={post.id} listStyle={listStyle} />;
+					return <Post post={post} i={i} listStyle={listStyle} key={post.id} />;
 				})}
 			</Flex>
 		);
 	};
 
 	return (
-		<Box>
+		<>
 			<Head>
 				<link
 					rel="stylesheet"
@@ -300,13 +313,13 @@ export function PostList({ posts, page = 1 }) {
 					defer
 				/>
 			</Head>
-			<ChangeListStyle setListStyle={setListStyle} listStyle={listStyle} />
+			{!postEmpty && <ChangeListStyle setListStyle={setListStyle} listStyle={listStyle} />}
 
 			<Posts posts={posts} />
 			{postEmpty && <NoPosts />}
 			{!postEmpty && (
 				<PostPage posts={posts} pageNum={pageNum} setPageNum={setPageNum} numberOfPosts={numberOfPosts} />
 			)}
-		</Box>
+		</>
 	);
 }
