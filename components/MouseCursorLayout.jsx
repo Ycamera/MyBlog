@@ -17,17 +17,19 @@ export default function MouseCursorLayout({ children, router }) {
 		leaveDelay: 0,
 	});
 
-	let mouseX = 0;
-	let mouseY = 0;
-	if (router.pathname === "/404") {
-		if (mouse.x !== null) {
-			mouseX = mouse.clientX;
-		}
+	const [mouseX, setMouseX] = useState(0);
+	const [mouseY, setMouseY] = useState(0);
 
-		if (mouse.y !== null) {
-			mouseY = mouse.clientY;
+	useEffect(() => {
+		if (router.pathname === "/404") {
+			if (mouse.x !== null) {
+				setMouseX(mouse.clientX);
+			}
+			if (mouse.y !== null) {
+				setMouseY(mouse.clientY);
+			}
 		}
-	}
+	}, [mouse.clientX, mouse.clientY]);
 
 	const variants = {
 		default: {
@@ -51,15 +53,11 @@ export default function MouseCursorLayout({ children, router }) {
 		spring: { damping: 5000 },
 	};
 
-	const variantsColor = {};
 	function mouseLeave() {
 		setCursorText("");
 		setCursorVariant("default");
 	}
-	function mouseOverPost() {
-		setCursorText("view");
-		setCursorVariant("post");
-	}
+
 	function mouseOverPageNotFound() {
 		setCursorText("Error");
 		setCursorVariant("post");
@@ -72,7 +70,7 @@ export default function MouseCursorLayout({ children, router }) {
 	return (
 		<div ref={ref} style={{ height: "100%", width: "100%" }}>
 			<motion.div className="mouse-cursor" variants={variants} initial={"default"} animate={cursorVariant}>
-				<Flex className="mouse-cursor-box" transform="translate(-50%,-50%)">
+				<Flex className="mouse-cursor-box" transform="translate(-50%,50%)">
 					<span className="mouse-cursor-text font-stick">
 						{cursorText}
 						<WarningTwoIcon />

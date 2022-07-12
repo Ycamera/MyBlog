@@ -1,7 +1,7 @@
 import { Container, Box, Flex } from "@chakra-ui/react";
 
 import { Sidebar } from "/components/Sidebar";
-import { useContext } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { MouseCursorContext } from "./MouseCursorLayout";
 
 function ContentLayout({ children, router }) {
@@ -33,11 +33,12 @@ function ContentLayout({ children, router }) {
 				></Box>
 				<Flex h="100%" w="100%" maxW="1300px" mx="auto" zIndex="2">
 					<Sidebar />
+
 					<Container
 						flex="1"
 						minH="calc(100vh - 50px)"
 						maxW="1000px"
-						pt={{ base: "60px", sm: "50px" }}
+						pt={{ base: "60px", lg: "50px" }}
 						pb="200px"
 						mx="auto"
 						px={{ base: "1.5rem", sm: "2rem", md: "50px" }}

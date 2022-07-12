@@ -1,10 +1,12 @@
-import { Flex, Box, Heading, Text, Circle, HStack } from "@chakra-ui/react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { Flex, Box, Heading, Text, Circle, HStack, Button } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon, TimeIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ListStyleComponent } from "/pages/_app.js";
+import Head from "next/head";
 
-const Published = ({ publishedAt }) => {
+const Published = ({ publishedAt, color }) => {
 	const dateData = new Date(publishedAt);
 
 	const date = dateData.getFullYear() + "/" + (dateData.getMonth() + 1) + "/" + dateData.getDate();
@@ -13,7 +15,7 @@ const Published = ({ publishedAt }) => {
 			w={{ base: "auto", md: "100px" }}
 			letterSpacing={1}
 			fontWeight="600"
-			color="gray.500"
+			color={color}
 			textAlign={{ base: "right", md: "center" }}
 			mt={{ base: 0, md: 1 }}
 			mb={{ base: 0, md: 1 }}
@@ -49,7 +51,7 @@ const ClickEffect = ({ clicked, effectPosition }) => {
 	);
 };
 
-const Post = ({ post, i }) => {
+const Post = ({ post, i, listStyle }) => {
 	const [clicked, setClicked] = useState();
 	const [effectPosition, setEffectPosition] = useState({});
 
@@ -67,20 +69,28 @@ const Post = ({ post, i }) => {
 		setTimeout(() => setClicked(true), 50);
 	}
 
+	const variants = {
+		initialList: { y: 10, opacity: 0, width: "100%" },
+		initialGrid: { y: 10, opacity: 0, width: "50%" },
+		animateList: { y: 0, opacity: 1, width: "100%" },
+		animateGrid: { y: 0, opacity: 1, width: "50%" },
+	};
+
 	return (
 		<NextLink href={`/posts/${id}`}>
-			<a onClick={onClickEffect}>
-				<motion.div
-					initial={{ y: 10, opacity: 0 }}
-					animate={{ y: 0, opacity: 1 }}
-					exit={{ opacity: 0 }}
-					transition={{ delay: i * 0.05 + 0.1, type: "spring", duration: 0.5 }}
-					whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-				>
+			<motion.div
+				variants={variants}
+				initial={listStyle ? "initialList" : "initialGrid"}
+				animate={listStyle ? "animateList" : "animateGrid"}
+				exit={{ opacity: 0 }}
+				transition={{ delay: i * 0.05 + 0.1, type: "spring", duration: 0.5 }}
+				whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+				style={{ marginBottom: "2rem", padding: "0 1rem" }}
+			>
+				<a onClick={onClickEffect}>
 					<Box
 						minH={"120px"}
-						mt={i === 0 ? 0 : "2rem"}
-						mb="2rem"
+						h={listStyle ? "auto" : "230px"}
 						rounded="5"
 						boxShadow="lg"
 						position="relative"
@@ -97,7 +107,7 @@ const Post = ({ post, i }) => {
 							<Heading as="h2" w="100%" fontSize="1.4rem" lineHeight="initial" mt="1" noOfLines="2">
 								{title}
 							</Heading>
-							<Published publishedAt={publishedAt} />
+							{listStyle && <Published publishedAt={publishedAt} color="gray.500" />}
 						</Flex>
 
 						<Box px="5" py={{ base: 3, md: 5 }}>
@@ -105,10 +115,15 @@ const Post = ({ post, i }) => {
 								{description}
 							</Text>
 						</Box>
+						{!listStyle && (
+							<Flex justifyContent="end" alignItems="center" mr={"1rem"}>
+								<Published publishedAt={publishedAt} color="gray.400" />
+							</Flex>
+						)}
 						<ClickEffect clicked={clicked} effectPosition={effectPosition} setClicked={setClicked} />
 					</Box>
-				</motion.div>
-			</a>
+				</a>
+			</motion.div>
 		</NextLink>
 	);
 };
@@ -120,10 +135,12 @@ const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
 		w: "30px",
 		h: "30px",
 		bg: "gray.100",
+		color: "gray.600",
 		justifyContent: "center",
 		alignItems: "center",
 		cursor: "pointer",
 		borderRadius: "5px",
+		className: "notCopyable",
 	};
 	const styleBoxEmpty = {
 		w: "30px",
@@ -185,7 +202,7 @@ const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
 				<PreviousPage />
 				<Num text={pageNumValid(pageNum, -2)} />
 				<Num text={pageNumValid(pageNum, -1)} />
-				<Num text={pageNum} style={{ bg: "#fff", boxShadow: "0 0px 3px #b1b8c1" }} />
+				<Num text={pageNum} style={{ bg: "gray.200", color: "gray.900", boxShadow: "0 0px 3px #b1b8c1" }} />
 				<Num text={pageNumValid(pageNum, 1)} />
 				<Num text={pageNumValid(pageNum, 2)} />
 				<NextPage />
@@ -210,24 +227,86 @@ const NoPosts = () => {
 	);
 };
 
+const ChangeListStyle = ({ setListStyle, listStyle }) => {
+	const style = { w: "40px", h: "40px", justifyContent: "center", alignItems: "center" };
+
+	const StyleChangeButton = ({ children, onClick, listColor }) => {
+		return (
+			<Flex
+				{...style}
+				{...listColor}
+				cursor="pointer"
+				onClick={onClick}
+				_hover={{ bg: "gray.200" }}
+				transition="0.3s"
+			>
+				{children}
+			</Flex>
+		);
+	};
+
+	const buttonColorNormal = { bg: "gray.50", color: "gray.400" };
+	const buttonColorActive = { bg: "gray.200", color: "gray.600" };
+
+	return (
+		<Flex justifyContent="end" mb="1rem">
+			<Flex borderRadius="5px" overflow={"hidden"} mr="1rem">
+				<StyleChangeButton
+					onClick={() => setListStyle(true)}
+					listColor={!listStyle ? buttonColorNormal : buttonColorActive}
+				>
+					<span className="material-symbols-outlined">format_list_bulleted</span>
+				</StyleChangeButton>
+				<StyleChangeButton
+					onClick={() => setListStyle(false)}
+					listColor={listStyle ? buttonColorNormal : buttonColorActive}
+				>
+					<span className="material-symbols-outlined">grid_view</span>
+				</StyleChangeButton>
+			</Flex>
+		</Flex>
+	);
+};
+
 export function PostList({ posts, page = 1 }) {
 	const [pageNum, setPageNum] = useState(page);
-	const numberOfPosts = 5;
+	const numberOfPosts = 6; //１ページあたりの投稿表示数
 	const pageStart = pageNum * numberOfPosts - numberOfPosts;
 	const postEmpty = !posts?.length;
 
+	const { listStyle, setListStyle } = useContext(ListStyleComponent);
+
 	const Posts = ({ posts }) => {
-		return posts?.slice(pageStart, pageNum * numberOfPosts).map((post, i) => {
-			return <Post post={post} i={i} key={`${post.id}${Math.random()}`} />;
-		});
+		return (
+			<Flex flexWrap={"wrap"}>
+				{posts?.slice(pageStart, pageNum * numberOfPosts).map((post, i) => {
+					return <Post post={post} i={i} key={post.id} listStyle={listStyle} />;
+				})}
+			</Flex>
+		);
 	};
+
 	return (
-		<>
+		<Box>
+			<Head>
+				<link
+					rel="stylesheet"
+					href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+					defer
+				/>
+				<link
+					rel="stylesheet"
+					href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+					defer
+				/>
+			</Head>
+			<ChangeListStyle setListStyle={setListStyle} listStyle={listStyle} />
+
 			<Posts posts={posts} />
 			{postEmpty && <NoPosts />}
 			{!postEmpty && (
 				<PostPage posts={posts} pageNum={pageNum} setPageNum={setPageNum} numberOfPosts={numberOfPosts} />
 			)}
-		</>
+		</Box>
 	);
 }
