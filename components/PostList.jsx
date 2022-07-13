@@ -6,6 +6,7 @@ import { useState, useContext } from "react";
 import { ListStyleComponent } from "/pages/_app.js";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { scrollToTop } from "/lib/scrollToTop";
 
 const Published = ({ publishedAt, color }) => {
 	const dateData = new Date(publishedAt);
@@ -136,20 +137,22 @@ const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
 	const router = useRouter();
 
 	const styleBox = {
-		w: "30px",
+		w: "45px",
 		h: "30px",
-		bg: "gray.100",
+		bg: "gray.50",
 		color: "gray.600",
 		justifyContent: "center",
 		alignItems: "center",
-		cursor: "pointer",
-		borderRadius: "5px",
 		className: "notCopyable",
+		margin: "0 1px",
+		transition: "0.3s",
 	};
 	const styleBoxEmpty = {
-		w: "30px",
+		w: "45px",
 		h: "30px",
+		margin: "0 1px",
 	};
+	const hover = { boxShadow: "0 0  3px #A0AEC0" };
 
 	function pageNumValid(num, calc) {
 		if (num + calc <= 0) return;
@@ -157,42 +160,69 @@ const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
 		return num + calc;
 	}
 
-	const PreviousPage = () => {
+	function getPositionOfPostsTop() {
+		try {
+			const el = document.getElementById("posts-top");
+			const rect = el.getBoundingClientRect();
+			const top = window.scrollY + rect.top - 120;
+
+			return top;
+		} catch (err) {
+			return 0;
+		}
+	}
+
+	const NextPreviousPage = ({ direc = "previous" }) => {
+		const direction = direc === "previous";
+
 		const previous = pageNum - 1;
-		const valid = previous > 0;
+		const previousValid = previous > 0;
+
+		const next = pageNum + 1;
+		const nextValid = next <= numberOfPage;
 
 		function previousPage() {
-			if (valid) setPageNum(previous);
+			if (previousValid) {
+				setPageNum(previous);
+				scrollToTop(getPositionOfPostsTop());
+			}
 		}
 
-		return valid ? (
-			<Flex {...styleBox} onClick={previousPage}>
+		function nextPage() {
+			if (nextValid) {
+				setPageNum(next);
+				scrollToTop(getPositionOfPostsTop());
+			}
+		}
+
+		return direction ? (
+			<Flex
+				{...styleBox}
+				onClick={previousPage}
+				_hover={previousValid && hover}
+				cursor={previousValid && "pointer"}
+			>
 				<ChevronLeftIcon />
 			</Flex>
 		) : (
-			<Flex {...styleBoxEmpty} />
-		);
-	};
-	const NextPage = () => {
-		const next = pageNum + 1;
-		const valid = next <= numberOfPage;
-
-		function nextPage() {
-			if (valid) setPageNum(next);
-		}
-
-		return valid ? (
-			<Flex {...styleBox} onClick={nextPage}>
+			<Flex {...styleBox} onClick={nextPage} _hover={nextValid && hover} cursor={nextValid && "pointer"}>
 				<ChevronRightIcon />
 			</Flex>
-		) : (
-			<Flex {...styleBoxEmpty} />
 		);
 	};
 
-	const Num = ({ text, style }) => {
+	const Num = ({ text, style, cursor = "pointer" }) => {
 		return text ? (
-			<Flex {...styleBox} onClick={() => setPageNum(text)} {...style}>
+			<Flex
+				{...styleBox}
+				_hover={hover}
+				onClick={() => {
+					setPageNum(text);
+					scrollToTop(getPositionOfPostsTop());
+				}}
+				{...style}
+				cursor={cursor}
+			>
 				{text}
 			</Flex>
 		) : (
@@ -202,15 +232,21 @@ const PostPage = ({ posts, pageNum, setPageNum, numberOfPosts }) => {
 
 	return (
 		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} key={router.asPath}>
-			<HStack justifyContent={"center"} mt="50px" gap="5px">
-				<PreviousPage />
-				<Num text={pageNumValid(pageNum, -2)} />
-				<Num text={pageNumValid(pageNum, -1)} />
-				<Num text={pageNum} style={{ bg: "gray.200", color: "gray.900", boxShadow: "0 0px 3px #b1b8c1" }} />
-				<Num text={pageNumValid(pageNum, 1)} />
-				<Num text={pageNumValid(pageNum, 2)} />
-				<NextPage />
-			</HStack>
+			<Flex justifyContent={"center"} mt="50px">
+				<Flex borderRadius="5px" overflow="hidden" py="5px">
+					<NextPreviousPage direc="previous" />
+					<Num text={pageNumValid(pageNum, -2)} />
+					<Num text={pageNumValid(pageNum, -1)} />
+					<Num
+						text={pageNum}
+						style={{ bg: "gray.100", color: "gray.900", boxShadow: "0 0px 3px #b1b8c1" }}
+						cursor="default"
+					/>
+					<Num text={pageNumValid(pageNum, 1)} />
+					<Num text={pageNumValid(pageNum, 2)} />
+					<NextPreviousPage direc="next" />
+				</Flex>
+			</Flex>
 		</motion.div>
 	);
 };
@@ -291,7 +327,7 @@ export function PostList({ posts, page = 1 }) {
 
 	const Posts = ({ posts }) => {
 		return (
-			<Flex flexWrap={"wrap"}>
+			<Flex flexWrap={"wrap"} id="posts-top">
 				{posts?.slice(pageStart, pageNum * numberOfPosts).map((post, i) => {
 					return <Post post={post} i={i} listStyle={listStyle} key={post.id} />;
 				})}
@@ -301,18 +337,6 @@ export function PostList({ posts, page = 1 }) {
 
 	return (
 		<>
-			<Head>
-				<link
-					rel="stylesheet"
-					href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
-					defer
-				/>
-				<link
-					rel="stylesheet"
-					href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
-					defer
-				/>
-			</Head>
 			{!postEmpty && <ChangeListStyle setListStyle={setListStyle} listStyle={listStyle} />}
 
 			<Posts posts={posts} />

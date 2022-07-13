@@ -9,7 +9,7 @@ export const Tag = ({ tags }) => {
 				.filter((tag) => tag)
 				.map((tag) => {
 					return (
-						<motion.span whileHover={{ scale: 1.05 }} style={{ display: "inline-block" }} key={tag}>
+						<motion.span whileHover={{ scale: 1.1 }} style={{ display: "inline-block" }} key={tag}>
 							<Badge mr="4" bg="blue.50" color="gray.600" key={tag} cursor="pointer">
 								<NextLink href={`/tags/${tag}`}>
 									<a style={{ letterSpacing: 0 }}># {tag}</a>

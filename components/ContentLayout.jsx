@@ -5,6 +5,7 @@ import React, { useContext, useMemo, useState } from "react";
 import { MouseCursorContext } from "./MouseCursorLayout";
 import { scrollToTop } from "/lib/scrollToTop";
 import { useEffect } from "react";
+import PostPageContext from "./Context/PostPageContext";
 
 function ContentLayout({ children, router }) {
 	const { mouseLeave, mouseOverPageNotFound } = useContext(MouseCursorContext);
@@ -39,20 +40,21 @@ function ContentLayout({ children, router }) {
 				></Box>
 				<Flex h="100%" w="100%" maxW="1300px" mx="auto" zIndex="2">
 					<Sidebar />
-
-					<Container
-						flex="1"
-						minH="calc(100vh - 50px)"
-						maxW="1000px"
-						pt={{ base: "60px", lg: "50px" }}
-						pb="200px"
-						mx="auto"
-						px={{ base: "1.5rem", sm: "2rem", md: "50px" }}
-						bg="white"
-						overflow={"hidden"}
-					>
-						{children}
-					</Container>
+					<PostPageContext>
+						<Container
+							flex="1"
+							minH="calc(100vh - 50px)"
+							maxW="1000px"
+							pt={{ base: "60px", lg: "50px" }}
+							pb="200px"
+							mx="auto"
+							px={{ base: "1.5rem", sm: "2rem", md: "50px" }}
+							bg="white"
+							overflow={"hidden"}
+						>
+							{children}
+						</Container>
+					</PostPageContext>
 				</Flex>
 			</Flex>
 		</>

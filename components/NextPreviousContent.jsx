@@ -1,10 +1,11 @@
 import { useState, useContext, useEffect } from "react";
-import { ArticleContext } from "/pages/_app";
+
 import { Box, Text, Flex, Heading, Icon } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
-import { scrollToTop } from "../lib/scrollToTop";
+import { LoadPostPageContext } from "./Context/PostPageContext";
+import { getArticlesByTagName } from "../lib/getArticlesClientSide.mjs";
 
 const NextPreviousButton = ({ id, title, icon }) => {
 	const left = icon === "left";
@@ -67,29 +68,37 @@ export default function NextPreviousContent({ id, posts }) {
 	const [next, setNext] = useState({});
 	const [previous, setPrevious] = useState({});
 
+	const { pageContext } = useContext(LoadPostPageContext);
+
 	useEffect(() => {
+		let postData = posts;
+
+		if (pageContext?.route === "tag") {
+			postData = getArticlesByTagName(posts, pageContext?.tag);
+		}
+
 		set();
 		function set() {
-			const index = posts?.findIndex((post) => String(post.id) === id);
-			const previousId = index + 1;
-			const nextId = index - 1;
+			const index = postData?.findIndex((post) => String(post.id) === id);
+			const previousId = index - 1;
+			const nextId = index + 1;
 
-			if (previousId < posts?.length) {
-				const { title } = posts[previousId]?.attributes;
+			if (previousId >= 0) {
+				const { title } = postData[previousId]?.attributes;
 				setPrevious({ id: convertIndexToId(previousId), title: title });
 			} else {
 				setPrevious({});
 			}
 
-			if (nextId >= 0) {
-				const { title } = posts[nextId]?.attributes;
+			if (nextId < postData?.length) {
+				const { title } = postData[nextId]?.attributes;
 				setNext({ id: convertIndexToId(nextId), title: title });
 			} else {
 				setNext({});
 			}
 		}
 		function convertIndexToId(index) {
-			return posts[index]?.id;
+			return postData[index]?.id;
 		}
 	}, [id]);
 
