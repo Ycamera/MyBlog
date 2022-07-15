@@ -1,4 +1,4 @@
-import { Flex, Box, Heading, Text, Circle, HStack, Button } from "@chakra-ui/react";
+import { Flex, Box, Heading, Text, Circle, HStack, Button, Image } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon, TimeIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -7,6 +7,7 @@ import { ListStyleComponent } from "/pages/_app.js";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { scrollToTop } from "/lib/scrollToTop";
+import ImageLogo from "./ImageLogo";
 
 const Published = ({ publishedAt, color }) => {
 	const dateData = new Date(publishedAt);
@@ -61,6 +62,8 @@ const Post = ({ post, i, listStyle }) => {
 	const { id } = post;
 	const { title, description, publishedAt } = post.attributes;
 
+	const tag = post?.attributes?.tag1;
+
 	function onClickEffect(e) {
 		const rect = e.target.closest("a").getBoundingClientRect();
 		const top = e.clientY - rect.top;
@@ -108,9 +111,20 @@ const Post = ({ post, i, listStyle }) => {
 							bg="#deebff"
 							borderRadius="5px 5px 0 0"
 						>
-							<Heading as="h2" w="100%" fontSize="1.4rem" lineHeight="initial" mt="1" noOfLines="2">
-								{title}
-							</Heading>
+							<Flex>
+								<ImageLogo tag={tag} />
+								<Heading
+									as="h2"
+									ml={{ base: 3, md: 4 }}
+									w="100%"
+									fontSize="1.4rem"
+									lineHeight="initial"
+									mt="1"
+									noOfLines="2"
+								>
+									{title}
+								</Heading>
+							</Flex>
 							{listStyle && <Published publishedAt={publishedAt} color="gray.500" />}
 						</Flex>
 

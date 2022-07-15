@@ -10,6 +10,7 @@ import NextPreviousContent from "../../components/NextPreviousContent";
 import MyHead from "/components/MyHead";
 import convertMarkdownIntoHtml from "/lib/convertMarkdownIntoHtml";
 import MotionLayout from "../../components/MotionLayout";
+import ImageLogo from "../../components/ImageLogo";
 
 export const getStaticPaths = async () => {
 	const data = await getArticles();
@@ -111,7 +112,7 @@ export default function Post({ posts, post, router }) {
 				<MyHead type="article" title={title} description={description} />
 
 				{html && tableOfContents && (
-					<Box mt="50px">
+					<Box as="article" mt="50px">
 						<Box mb="3">
 							<Heading
 								as="h1"
@@ -121,7 +122,10 @@ export default function Post({ posts, post, router }) {
 							>
 								{title}
 							</Heading>
-							<Tag tags={[tag1, tag2, tag3, tag4, tag5]} />
+							<Flex alignItems="center">
+								<ImageLogo tag={tag1} mdSize="30px" style={{ mr: 4 }} />
+								<Tag tags={[tag1, tag2, tag3, tag4, tag5]} />
+							</Flex>
 						</Box>
 						{tableOfContents && <TableOfContents tableOfContents={tableOfContents} />}
 						<Box mt="50" className="code">

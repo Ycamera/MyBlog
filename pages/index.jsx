@@ -21,7 +21,7 @@ export const getStaticProps = async () => {
 
 export default function Home({ posts }) {
 	return (
-		<MotionLayout key="home">
+		<MotionLayout>
 			<MyHead
 				type="blog"
 				title="暇な人の技術ブログ"
@@ -39,15 +39,13 @@ export default function Home({ posts }) {
 				暇な人の技術メモ（仮）
 			</Heading>
 
-			{
-				<iframe
-					src="https://my.spline.design/untitled-0c6de592cab87ad982995bcc80ecdcb8/"
-					frameBorder="0"
-					width="100%"
-					height="500px"
-					className="spline-script"
-				></iframe>
-			}
+			<iframe
+				src="https://my.spline.design/untitled-0c6de592cab87ad982995bcc80ecdcb8/"
+				frameBorder="0"
+				width="100%"
+				height="500px"
+				className="spline-script"
+			></iframe>
 
 			<PostList posts={posts} />
 		</MotionLayout>

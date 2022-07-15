@@ -13,19 +13,13 @@ export default function MotionLayout({ children }) {
 		exit: {
 			opacity: 0,
 			y: 10,
-			transition: { duration: 0.1 },
+			transition: { duration: 0.2 },
 		},
 	};
 
 	return (
-		<motion.article
-			variants={variants}
-			initial="initial"
-			animate="animate"
-			exit="exit"
-			transition={{ duration: 0.3 }}
-		>
+		<motion.div variants={variants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3 }}>
 			{children}
-		</motion.article>
+		</motion.div>
 	);
 }

@@ -13,8 +13,10 @@ async function saveArticle() {
 	const articles = await getArticles();
 	fs.writeFile("./getContentFromStrapi/articles.json", JSON.stringify(articles), (err, file) => {
 		if (err) {
+			console.log(err);
+			console.log("failed to fetch data");
 		} else {
-			console.log("succesfully recieved contents");
+			console.log("succesfully recieved and saved the articles");
 		}
 	});
 }
