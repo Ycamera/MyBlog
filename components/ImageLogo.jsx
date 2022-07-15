@@ -5,7 +5,7 @@ const ImageLogo = ({ tag, baseSize = "30px", mdSize = "50px", style = {} }) => {
 	return (
 		tag && (
 			<Flex alignItems="center" justifyContent="center" {...imageSize} {...style}>
-				<Image ObjectFit="cover" src={`/images/Logos/${tag}.png`} alt={tag}></Image>
+				<Image objectFit="cover" src={`/images/Logos/${tag}.png`} alt={tag}></Image>
 			</Flex>
 		)
 	);

@@ -18,7 +18,7 @@ export default function Footer() {
 			<Flex alignItems={"center"}>
 				<NextLink href="/">
 					<a>
-						<Box px="5">TOP</Box>
+						<Box px="5">Nothing is here yet</Box>
 					</a>
 				</NextLink>
 			</Flex>
