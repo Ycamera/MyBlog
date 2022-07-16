@@ -16,7 +16,6 @@ export const ListStyleComponent = React.createContext();
 
 function MyApp({ Component, pageProps }) {
 	const router = useRouter();
-	const ref = React.useRef(null);
 
 	const [listStyle, setListStyle] = useState(true);
 

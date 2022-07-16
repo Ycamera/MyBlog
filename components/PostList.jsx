@@ -1,15 +1,15 @@
-import { Flex, Box, Heading, Text, Circle, HStack, Button, Image } from "@chakra-ui/react";
+import { Flex, Box, Heading, Text, Circle, HStack, Button, Divider } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon, TimeIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { ListStyleComponent } from "/pages/_app.js";
-import Head from "next/head";
+
 import { useRouter } from "next/router";
 import { scrollToTop } from "/lib/scrollToTop";
 import ImageLogo from "./ImageLogo";
 
-const Published = ({ publishedAt, color }) => {
+const Published = ({ publishedAt, color, style }) => {
 	const dateData = new Date(publishedAt);
 
 	const date = dateData.getFullYear() + "/" + (dateData.getMonth() + 1) + "/" + dateData.getDate();
@@ -22,6 +22,8 @@ const Published = ({ publishedAt, color }) => {
 			textAlign={{ base: "right", md: "center" }}
 			mt={{ base: 0, md: 1 }}
 			mb={{ base: 0, md: 1 }}
+			ml="auto"
+			{...style}
 		>
 			{date}
 		</Text>
@@ -102,13 +104,14 @@ const Post = ({ post, i, listStyle }) => {
 						position="relative"
 						overflow={"hidden"}
 						cursor="pointer"
+						pos="relative"
 					>
 						<Flex
 							px="5"
 							py="3"
 							flexDirection={{ base: "column", md: "row" }}
 							color="blue.900"
-							bg="#deebff"
+							bg="#e3eeff"
 							borderRadius="5px 5px 0 0"
 						>
 							<Flex>
@@ -127,16 +130,20 @@ const Post = ({ post, i, listStyle }) => {
 							</Flex>
 							{listStyle && <Published publishedAt={publishedAt} color="gray.500" />}
 						</Flex>
+						<Divider orientation="horizontal" />
 
 						<Box px="5" py={{ base: 3, md: 5 }}>
 							<Text color="gray.600" noOfLines={{ base: 3, sm: 2 }}>
 								{description}
 							</Text>
 						</Box>
+
 						{!listStyle && (
-							<Flex justifyContent="end" alignItems="center" mr={"1rem"}>
-								<Published publishedAt={publishedAt} color="gray.400" />
-							</Flex>
+							<Published
+								publishedAt={publishedAt}
+								color="gray.400"
+								style={{ mr: "1rem", mt: "auto", mb: 3, pos: "absolute", right: 0, bottom: 0 }}
+							/>
 						)}
 						<ClickEffect clicked={clicked} effectPosition={effectPosition} setClicked={setClicked} />
 					</Box>
@@ -335,9 +342,9 @@ export function PostList({ posts, page = 1 }) {
 	const pageStart = pageNum * numberOfPosts - numberOfPosts;
 	const postEmpty = !posts?.length;
 
-	const router = useRouter();
-
 	const { listStyle, setListStyle } = useContext(ListStyleComponent);
+
+	const router = useRouter();
 
 	const Posts = ({ posts }) => {
 		return (
@@ -348,6 +355,13 @@ export function PostList({ posts, page = 1 }) {
 			</Flex>
 		);
 	};
+
+	//トップページへ移動すると現在のページの数をリセットする
+	useEffect(() => {
+		if (router.route === "/") {
+			setPageNum(1);
+		}
+	}, [router]);
 
 	return (
 		<>

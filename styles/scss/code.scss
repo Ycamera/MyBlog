@@ -28,7 +28,7 @@
 	line-height: 1.8rem;
 
 	:not(h2) + pre {
-		margin-top: 2rem;
+		margin-top: 1rem;
 	}
 
 	.code-frame {
@@ -89,10 +89,32 @@
 		}
 		@extend %notCopyable;
 	}
+	h3 {
+		display: inline-block;
+		color: $blue900;
+		border-bottom: solid 5px $blue100;
+		margin-top: 1rem;
+	}
+
+	.code-marker {
+		position: relative;
+		z-index: 1;
+		&::before {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 20%;
+			background: rgba(238, 255, 0, 0.565);
+			// opacity: 0.4;
+			bottom: 0;
+			transform: translatey(150%);
+			z-index: -1;
+		}
+	}
 
 	@media (max-width: 575px) {
 		h2 {
-			display: block;
+			display: inline-block;
 			margin-left: 0;
 			font-size: 1.3rem !important;
 			margin-bottom: 1rem;
@@ -105,8 +127,9 @@
 			}
 		}
 		.h2-linenum {
-			top: 0 !important;
+			display: inline-block;
 		}
+
 		pre {
 			font-size: 0.4rem;
 			code,

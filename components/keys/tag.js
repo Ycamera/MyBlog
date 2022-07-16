@@ -1,1 +1,11 @@
-export const keysOfTag = ["JavaScript", "React.js", "Next.js", "FramerMotion", "ChakraUI", "CSS", "SCSS", "SEO"];
+export const keysOfTag = [
+	"JavaScript",
+	"TypeScript",
+	"React.js",
+	"Next.js",
+	"FramerMotion",
+	"ChakraUI",
+	"CSS",
+	"SCSS",
+	"SEO",
+];
