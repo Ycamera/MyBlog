@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpIcon } from "@chakra-ui/icons";
 import { MouseCursorContext } from "./MouseCursorLayout";
+import { scrollToTopSmooth } from "../lib/scrollToTop";
 
 const ToTopButton = () => {
 	const [toTopIsShown, setToTopIsShown] = useState();
@@ -21,11 +22,17 @@ const ToTopButton = () => {
 		<AnimatePresence>
 			{toTopIsShown && (
 				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-					<a href="#" style={{ display: "block" }}>
-						<Circle size="50px" bg="gray.200" pos="fixed" bottom="2rem" right="2rem">
-							<ArrowUpIcon color="gray.600" />
-						</Circle>
-					</a>
+					<Circle
+						size="50px"
+						bg="gray.200"
+						pos="fixed"
+						bottom="2rem"
+						right="2rem"
+						onClick={scrollToTopSmooth}
+						cursor="pointer"
+					>
+						<ArrowUpIcon color="gray.600" />
+					</Circle>
 				</motion.div>
 			)}
 		</AnimatePresence>

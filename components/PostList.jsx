@@ -85,16 +85,16 @@ const Post = ({ post, i, listStyle }) => {
 	};
 
 	return (
-		<NextLink href={`/posts/${id}`}>
-			<motion.div
-				variants={variants}
-				initial={listStyle ? "initialList" : "initialGrid"}
-				animate={listStyle ? "animateList" : "animateGrid"}
-				exit={{ opacity: 0 }}
-				transition={{ delay: i * 0.05 + 0.1, type: "spring", duration: 0.5 }}
-				whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-				style={{ marginBottom: "2rem", padding: "0 1rem" }}
-			>
+		<motion.div
+			variants={variants}
+			initial={listStyle ? "initialList" : "initialGrid"}
+			animate={listStyle ? "animateList" : "animateGrid"}
+			exit={{ opacity: 0 }}
+			transition={{ delay: i * 0.05 + 0.1, type: "spring", duration: 0.5 }}
+			whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+			style={{ marginBottom: "2rem", padding: "0 1rem" }}
+		>
+			<NextLink href={`/posts/${id}`}>
 				<a onClick={onClickEffect}>
 					<Box
 						minH={"120px"}
@@ -148,8 +148,8 @@ const Post = ({ post, i, listStyle }) => {
 						<ClickEffect clicked={clicked} effectPosition={effectPosition} setClicked={setClicked} />
 					</Box>
 				</a>
-			</motion.div>
-		</NextLink>
+			</NextLink>
+		</motion.div>
 	);
 };
 
