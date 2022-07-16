@@ -98,7 +98,7 @@ const Post = ({ post, i, listStyle }) => {
 				<a onClick={onClickEffect}>
 					<Box
 						minH={"120px"}
-						h={listStyle ? "auto" : "230px"}
+						h={listStyle ? "auto" : { base: "200px", md: "230px" }}
 						rounded="5"
 						boxShadow="lg"
 						position="relative"
