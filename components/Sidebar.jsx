@@ -117,7 +117,7 @@ const MobileBar = () => {
 	function menuDisable() {
 		setMenuShow(false);
 	}
-	useEffect(() => menuDisable(), [router.route]);
+	useEffect(() => menuDisable(), [router.asPath]);
 
 	return (
 		<Flex pos="fixed" zIndex="100" display={{ base: "flex", lg: "none" }} mt="50px">
