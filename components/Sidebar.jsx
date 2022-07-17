@@ -1,4 +1,4 @@
-import { Circle, Container, Flex, Box, VStack, Button, useDisclosure } from "@chakra-ui/react";
+import { Circle, Flex, Box, VStack, Button } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { keysOfTag } from "./keys/tag.js";

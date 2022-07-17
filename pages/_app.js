@@ -5,12 +5,9 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 import MouseCursorLayout from "../components/MouseCursorLayout";
 import ContentLayout from "/components/ContentLayout";
-
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-
 import Head from "next/head";
-import Script from "next/script";
 import { AnimatePresence } from "framer-motion";
 export const ListStyleComponent = React.createContext();
 

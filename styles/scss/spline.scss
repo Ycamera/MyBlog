@@ -3,3 +3,17 @@
 		display: none;
 	}
 }
+
+.spline-script,
+#canvas3d {
+	position: relative;
+
+	&::after {
+		z-index: 10;
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+	}
+}

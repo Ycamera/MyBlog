@@ -1,8 +1,8 @@
-import { Text, Box, Flex, Heading } from "@chakra-ui/react";
+import { Text, Box, Flex } from "@chakra-ui/react";
 import MyHead from "../components/MyHead";
 import { motion } from "framer-motion";
-import { useContext, useEffect } from "react";
-import MouseCursorLayout, { MouseCursorContext } from "/components/MouseCursorLayout";
+import { useContext } from "react";
+import { MouseCursorContext } from "/components/MouseCursorLayout";
 
 function random(num = 1) {
 	return Math.random() * num;
@@ -97,7 +97,7 @@ const PageContent = () => {
 		</Flex>
 	);
 };
-export default function PageNotFound({ router }) {
+export default function PageNotFound({}) {
 	return (
 		<>
 			<MyHead title="Page not found" description="ページが見つかりませんでした。" />

@@ -1,10 +1,10 @@
-import { Flex, HStack, Box, Circle, Text } from "@chakra-ui/react";
+import { Flex, HStack, Box, Circle } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useEffect, useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpIcon } from "@chakra-ui/icons";
 import { MouseCursorContext } from "./MouseCursorLayout";
-import { scrollToTopSmooth } from "../lib/scrollToTop";
+import { scrollToTopSmooth } from "../lib/scrollToTop.mjs";
 
 const ToTopButton = () => {
 	const [toTopIsShown, setToTopIsShown] = useState();

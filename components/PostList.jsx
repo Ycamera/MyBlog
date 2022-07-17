@@ -1,7 +1,7 @@
-import { Flex, Box, Heading, Text, Circle, HStack, Button, Divider } from "@chakra-ui/react";
-import { ChevronLeftIcon, ChevronRightIcon, TimeIcon } from "@chakra-ui/icons";
+import { Flex, Box, Heading, Text, Divider } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useContext, useEffect } from "react";
 import { ListStyleComponent } from "/pages/_app.js";
 

@@ -1,10 +1,8 @@
 import { getArticles, getArticleById } from "/lib/getArticles.mjs";
-import { Box, Flex, Heading, Text, Badge, OrderedList, ListItem } from "@chakra-ui/react";
-
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useState, useEffect } from "react";
 import { Tag } from "/components/Tag";
-import Script from "next/script";
 import Head from "next/head";
 import NextPreviousContent from "../../components/NextPreviousContent";
 import MyHead from "/components/MyHead";

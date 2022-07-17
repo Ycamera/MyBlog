@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Flex } from "@chakra-ui/react";
 import useMouse from "@react-hook/mouse-position";
-
 import { motion } from "framer-motion";
-
-export const MouseCursorContext = React.createContext();
 import { WarningTwoIcon } from "@chakra-ui/icons";
 
+export const MouseCursorContext = React.createContext();
 export default function MouseCursorLayout({ children, router }) {
 	const [cursorText, setCursorText] = useState("test");
 	const [cursorVariant, setCursorVariant] = useState("default");

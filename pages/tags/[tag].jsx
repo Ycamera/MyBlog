@@ -1,12 +1,9 @@
 import { getArticlesByTag } from "../../lib/getArticles.mjs";
-
 import { PostList } from "../../components/PostList.jsx";
 import { keysOfTag } from "../../components/keys/tag.js";
 import { Heading } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import codeStyle from "/styles/css/decoration.module.css";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
 import MyHead from "../../components/MyHead.jsx";
 
 export const getStaticPaths = async () => {

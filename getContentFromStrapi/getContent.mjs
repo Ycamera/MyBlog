@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
-import fs, { read } from "fs";
+import fs from "fs";
 
+//local headlessCMS strapiからarticleデータを取得
 async function getArticles() {
 	const response = await fetch("http://localhost:1337/api/articles");
 	const json = await response.json();
@@ -9,6 +10,7 @@ async function getArticles() {
 	return data;
 }
 
+//article.jsonとして取得したデータを保存
 async function saveArticle() {
 	const articles = await getArticles();
 	fs.writeFile("./getContentFromStrapi/articles.json", JSON.stringify(articles), (err, file) => {

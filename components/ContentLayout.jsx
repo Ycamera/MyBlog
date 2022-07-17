@@ -1,7 +1,7 @@
 import { Container, Box, Flex } from "@chakra-ui/react";
 
 import { Sidebar } from "/components/Sidebar";
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext } from "react";
 import { MouseCursorContext } from "./MouseCursorLayout";
 import { scrollToTop, scrollToTopSmooth } from "/lib/scrollToTop";
 import { useEffect, useRef } from "react";

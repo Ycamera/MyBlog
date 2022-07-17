@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-
-import { Box, Text, Flex, Heading, Icon } from "@chakra-ui/react";
+import { Box, Text, Flex } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
