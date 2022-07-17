@@ -8,12 +8,12 @@ https://myblog-lac-ten.vercel.app/
 <h4>フロント</h4>
 
 - <a href='https://nextjs.org/'>Next.js</a>
-- <a href='https://www.framer.com/motion/'>Framer Motion<a/>
-- <a href='https://chakra-ui.com/'>Chakra UI<a/>
+- <a href='https://www.framer.com/motion/'>Framer Motion</a>
+- <a href='https://chakra-ui.com/'>Chakra UI</a>
 
 <h4>ヘッドレスCMS</h4>
 
-  - <a href='https://strapi.io/'>Strapi<a/>
+  - <a href='https://strapi.io/'>Strapi</a>
 
 <h2>ファイル構造</h2>
   
