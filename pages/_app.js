@@ -43,38 +43,3 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-
-/**
-
-export const ArticleContext = React.createContext();
-
-function MyApp({ Component, pageProps }) {
-	
-	
-	const [articles, setArticles] = useState([]);
-
-	const router = useRouter();
-	
-	useEffect(() => {
-		set();
-		async function set() {
-			if (!articles.length) setArticles(await getArticles());
-		}
-	}, []);
-
-	return (
-		<ChakraProvider>
-			<Head>
-				<meta property="og:site_name" content="暇な人の技術ブログ（仮）" />
-				<title>暇な人の技術ブログ（仮）</title>
-			</Head>
-			<ArticleContext.Provider value={articles}>
-				<Nav />
-				<Layout>
-					<Component {...pageProps} articles={articles} setArticles={setArticles} router={router} />
-				</Layout>
-			</ArticleContext.Provider>
-		</ChakraProvider>
-	);
-}
- */
