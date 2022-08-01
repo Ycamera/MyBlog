@@ -18,7 +18,7 @@
 .code .code-frame {
   position: relative;
   background-color: #ebf8ff;
-  margin-top: 3rem;
+  margin-top: 5rem;
   padding: 2rem;
   border-radius: 5px;
 }
@@ -67,8 +67,8 @@
   display: inline-block;
   color: #1a365d;
   border-bottom: solid 5px #bee3f8;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 .code .code-marker {
   position: relative;
@@ -85,6 +85,9 @@
   z-index: -1;
 }
 @media (max-width: 575px) {
+  .code .code-frame {
+    margin-top: 3.5rem;
+  }
   .code h2 {
     display: inline-block;
     margin-left: 0;
@@ -115,7 +118,7 @@
   top: 0.2rem;
   font-weight: bold;
   font-size: 2rem;
-  color: #94bcf9;
+  color: #5e98f0;
 }
 .code pre {
   font-size: 0.9rem;

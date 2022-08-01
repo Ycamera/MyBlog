@@ -97,48 +97,44 @@ export default function Post({ posts, post, router }) {
 	}, [content]);
 
 	return (
-		<>
-			<Head>
+		<MotionLayout key={router.asPath.replace(/#.*/g, "")}>
+			<MyHead type="article" title={title} description={description}>
 				<script
 					type="text/javascript"
 					src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"
 					defer
 				></script>
-			</Head>
+			</MyHead>
 
-			<MotionLayout key={router.asPath.replace(/#.*/g, "")}>
-				<MyHead type="article" title={title} description={description} />
-
-				{html && tableOfContents && (
-					<Box as="article" mt="50px">
-						<Box mb="3">
-							<Heading
-								as="h1"
-								mb="2rem"
-								color="gray.700"
-								fontSize={{ base: "1.6rem", sm: "1.8rem", md: "2.1rem" }}
-							>
-								{title}
-							</Heading>
-							<Flex alignItems="center">
-								<ImageLogo tag={tag1} mdSize="30px" style={{ mr: 4 }} />
-								<Tag tags={[tag1, tag2, tag3, tag4, tag5]} />
-							</Flex>
-						</Box>
-						{tableOfContents && <TableOfContents tableOfContents={tableOfContents} />}
-						<Box mt="50" className="code">
-							{html}
-
-							<Flex mt="10" justifyContent={"end"}>
-								<Box fontWeight="bold" bg="cyan.50" color="blue.900" rounded="5" p="3">
-									{"</以上>"}
-								</Box>
-							</Flex>
-						</Box>
-						<NextPreviousContent id={id} posts={posts} />
+			{html && tableOfContents && (
+				<Box as="article" mt="50px">
+					<Box mb="3">
+						<Heading
+							as="h1"
+							mb="2rem"
+							color="gray.700"
+							fontSize={{ base: "1.6rem", sm: "1.8rem", md: "2.1rem" }}
+						>
+							{title}
+						</Heading>
+						<Flex alignItems="center">
+							<ImageLogo tag={tag1} mdSize="30px" style={{ mr: 4 }} />
+							<Tag tags={[tag1, tag2, tag3, tag4, tag5]} />
+						</Flex>
 					</Box>
-				)}
-			</MotionLayout>
-		</>
+					{tableOfContents && <TableOfContents tableOfContents={tableOfContents} />}
+					<Box mt="50" className="code">
+						{html}
+
+						<Flex mt="10" justifyContent={"end"}>
+							<Box fontWeight="bold" bg="cyan.50" color="blue.900" rounded="5" p="3">
+								{"</以上>"}
+							</Box>
+						</Flex>
+					</Box>
+					<NextPreviousContent id={id} posts={posts} />
+				</Box>
+			)}
+		</MotionLayout>
 	);
 }

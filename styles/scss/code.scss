@@ -34,7 +34,7 @@
 	.code-frame {
 		position: relative;
 		background-color: $blue50;
-		margin-top: 3rem;
+		margin-top: 5rem;
 		padding: 2rem;
 		border-radius: 5px;
 
@@ -93,8 +93,8 @@
 		display: inline-block;
 		color: $blue900;
 		border-bottom: solid 5px $blue100;
-		margin-top: 1rem;
-		margin-bottom: 1rem;
+		margin-top: 1.5rem;
+		margin-bottom: 0.5rem;
 
 		@extend %notCopyable;
 	}
@@ -116,6 +116,9 @@
 	}
 
 	@media (max-width: 575px) {
+		.code-frame {
+			margin-top: 3.5rem;
+		}
 		h2 {
 			display: inline-block;
 			margin-left: 0;
@@ -144,16 +147,13 @@
 		}
 	}
 
-	@media (min-width: 576px) and (max-width: 767px) {
-	}
-
 	.h2-linenum {
 		position: relative;
 		top: 0.2rem;
 
 		font-weight: bold;
 		font-size: 2rem;
-		color: #94bcf9;
+		color: #5e98f0;
 		@extend %notCopyable;
 	}
 	pre {

@@ -5,6 +5,7 @@ import { Heading } from "@chakra-ui/react";
 import codeStyle from "/styles/css/decoration.module.css";
 import { motion, AnimatePresence } from "framer-motion";
 import MyHead from "../../components/MyHead.jsx";
+import MotionLayout from "../../components/MotionLayout";
 
 export const getStaticPaths = async () => {
 	const paths = keysOfTag.map((tag) => {
@@ -30,7 +31,7 @@ export default function Tag({ posts, router }) {
 	const tag = router?.query?.tag ? router?.query?.tag : "";
 
 	return (
-		<>
+		<MotionLayout>
 			<MyHead type="article" title={`#${tag}`} description={`サイト内のタグ検索:${tag}`} />
 			<AnimatePresence exitBeforeEnter>
 				<motion.div
@@ -52,6 +53,6 @@ export default function Tag({ posts, router }) {
 				</motion.div>
 				<PostList posts={posts} />
 			</AnimatePresence>
-		</>
+		</MotionLayout>
 	);
 }
